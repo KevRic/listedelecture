@@ -41,7 +41,7 @@ app.get('/api/pieces/:id', (requete, reponse) => {
     );
 });
 
-app.put('/api/pieces/ajouter', (requete, reponse) => {
+app.post('/api/pieces/ajouter', (requete, reponse) => {
     const {titre, artiste, categorie} = requete.body;
 
     if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
@@ -65,7 +65,7 @@ app.put('/api/pieces/ajouter', (requete, reponse) => {
     }
 });
 
-app.post('/api/pieces/modifier/:id', (requete, reponse) => {
+app.put('/api/pieces/modifier/:id', (requete, reponse) => {
     const {titre, artiste, categorie} = requete.body;
     const id = requete.params.id;
 
