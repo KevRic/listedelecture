@@ -12,7 +12,7 @@ const utiliserDB = async (operations, reponse) => {
         const db = client.db('liste-repertoire');
 
         await operations(db);
-
+        //Salut les potes
         client.close();
     }
     catch(erreur) {
