@@ -6,23 +6,21 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const utiliserDB = async (operations, reponse) => {
+const utiliserDB = async(operations, reponse) => {
     try {
-        const client = await MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true});
-        const db = client.db('liste-repertoire');
+        const client = await MongoClient.connect('mongodb://localhost:27017', { useUnifiedTopology: true });
+        const db = client.db('listedelecture');
 
         await operations(db);
-        //Salut les potes
         client.close();
-    }
-    catch(erreur) {
+    } catch (erreur) {
         reponse.status(500).send("Erreur de connexion à la bd", erreur);
     }
 };
 
 app.get('/api/pieces', (requete, reponse) => {
-    utiliserDB(async (db) => {
-        const listePieces = await db.collection('pieces').find().toArray();
+    utiliserDB(async(db) => {
+        const listePieces = await db.collection('pieces').find({}).sort({ Categorie: 1 }).toArray();
         reponse.status(200).json(listePieces);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
@@ -32,32 +30,31 @@ app.get('/api/pieces', (requete, reponse) => {
 app.get('/api/pieces/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const infoPiece = await db.collection('pieces').findOne({ _id: objectId });
-        reponse.status(200).json(infoPiece);      
+        reponse.status(200).json(infoPiece);
     }, reponse).catch(
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
 
 app.post('/api/pieces/ajouter', (requete, reponse) => {
-    const {titre, artiste, categorie} = requete.body;
+    const { titre, artiste, categorie } = requete.body;
 
     if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
-        utiliserDB(async (db) => {
-            await db.collection('pieces').insertOne({ 
+        utiliserDB(async(db) => {
+            await db.collection('pieces').insertOne({
                 titre: titre,
                 artiste: artiste,
                 categorie: categorie
             });
-            
+
             reponse.status(200).send("Pièce ajoutée");
         }, reponse).catch(
             () => reponse.status(500).send("Erreur : la pièce n'a pas été ajoutée")
-        );;        
-    }
-    else {
+        );;
+    } else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - titre: ${titre}
             - artiste: ${artiste}
@@ -66,11 +63,11 @@ app.post('/api/pieces/ajouter', (requete, reponse) => {
 });
 
 app.put('/api/pieces/modifier/:id', (requete, reponse) => {
-    const {titre, artiste, categorie} = requete.body;
+    const { titre, artiste, categorie } = requete.body;
     const id = requete.params.id;
 
     if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('pieces').updateOne({ _id: objectId }, {
                 '$set': {
@@ -79,13 +76,12 @@ app.put('/api/pieces/modifier/:id', (requete, reponse) => {
                     categorie: categorie
                 }
             });
-            
+
             reponse.status(200).send("Pièce modifiée");
         }, reponse).catch(
             () => reponse.status(500).send("Erreur : la pièce n'a pas été modifiée")
-        );        
-    }
-    else {
+        );
+    } else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - titre: ${titre}
             - artiste: ${artiste}
@@ -96,14 +92,14 @@ app.put('/api/pieces/modifier/:id', (requete, reponse) => {
 app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const resultat = await db.collection('pieces').deleteOne({ _id: objectId });
-        
+
         reponse.status(200).send(`${resultat.deletedCount} pièce supprimée`);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée")
-    );    
+    );
 });
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
