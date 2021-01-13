@@ -48,6 +48,9 @@ function FormulaireAjouterPiece({ id }) {
             if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
                 setEtatbuttonSoumettre(false);
             }
+            else{
+                setEtatbuttonSoumettre(true);
+            }
             
             if(categorie.length > 0)
             {
@@ -55,7 +58,7 @@ function FormulaireAjouterPiece({ id }) {
             }
         }
         test();
-    }, [titre,artiste,categorie])
+    }, [titre,artiste,categorie,categorieArray])
     
     return (
     <>
