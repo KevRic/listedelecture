@@ -1,6 +1,7 @@
 import {
     React,
-    useState
+    useState,
+    useEffect
 } from 'react';
 
 import { Form } from 'react-bootstrap';
@@ -12,11 +13,14 @@ function FormulaireAjouterPiece({ id }) {
     const [artiste, setArtiste] = useState('');
     const [categorie, setCategorie] = useState('');
     const [rediriger, setRediriger] = useState(false);
+    const [categorieArray, setCategorieArray] = useState([]);
+    const [etatButtonsoumette, setEtatbuttonSoumettre] = useState(true);
+    const [etatButtonAjouter, setEtatbuttonAjouter] = useState(true);
 
     const envoyerFormulaire = async () => {
         await fetch(`/api/pieces/ajouter`, {
-            method: 'put',
-            body: JSON.stringify({ titre, artiste, categorie }),
+            method: 'post',
+            body: JSON.stringify({ Titre: titre, Artiste: artiste, Categorie: categorieArray  }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -29,6 +33,29 @@ function FormulaireAjouterPiece({ id }) {
             return <Redirect to="/admin" />
         }
     }
+
+    function AjouterCategorie(){      
+        var categorieTemp = categorieArray.slice();
+        categorieTemp.push(categorie);
+        setCategorieArray(categorieTemp);
+        setCategorie("");
+        setEtatbuttonAjouter(true);
+        
+    }
+
+    useEffect(() => {
+        const test = () => {
+            if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
+                setEtatbuttonSoumettre(false);
+            }
+            
+            if(categorie.length > 0)
+            {
+                setEtatbuttonAjouter(false);
+            }
+        }
+        test();
+    }, [titre,artiste,categorie])
     
     return (
     <>
@@ -52,10 +79,31 @@ function FormulaireAjouterPiece({ id }) {
                     onChange={(event) => setCategorie(event.target.value)} />
             </Form.Group>
 
-            <Button variant="primary" onClick={envoyerFormulaire} >
+            <Button variant="primary" disabled={etatButtonAjouter}  onClick={() => AjouterCategorie()} >
                 Ajouter
             </Button>
         </Form>
+        <Form className="mb-1">
+                    <Form.Group>
+                        <Form.Label>Titre:</Form.Label><br />
+                        <Form.Label>{titre}</Form.Label>
+                    </Form.Group>
+        
+                    <Form.Group>
+                        <Form.Label>Artiste / Groupe</Form.Label><br />
+                        <Form.Label>{artiste}</Form.Label>
+                    </Form.Group>
+        
+                    <Form.Group>
+                        <Form.Label>Catégorie</Form.Label><br />
+                        <Form.Label>{categorieArray.map((catego) => <p>{catego}</p>)}</Form.Label>
+                    </Form.Group>
+
+                    <Button variant="primary" disabled={etatButtonsoumette} onClick={envoyerFormulaire} >
+                Soumettre
+            </Button>
+
+                </Form>
     </>
     );
 }
