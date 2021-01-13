@@ -15,7 +15,7 @@ function ListePieces({ pieces }) {
         });
 
         const categories = Object.keys(dictionnaireCategories);
-        
+        categories.sort();
         return (
             <>
                 {categories.map((categorie) => {
