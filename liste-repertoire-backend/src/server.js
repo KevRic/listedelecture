@@ -102,4 +102,91 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     );
 });
 
+// ------------- collection demandespecial
+
+app.get('/api/demandespeciales', (requete, reponse) => {
+    utiliserDB(async(db) => {
+        const listeDemande = await db.collection('demandespeciales').find({}).sort({ NomClient: 1 }).toArray();
+        reponse.status(200).json(listeDemande);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );;
+});
+
+app.get('/api/demandespeciales/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async(db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const infoPiece = await db.collection('demandespeciales').findOne({ _id: objectId });
+        reponse.status(200).json(infoPiece);
+    }, reponse).catch(
+        () => reponse.status(500).send("Demande special non trouvée")
+    );
+});
+
+app.post('/api/demandespeciales/ajouter', (requete, reponse) => {
+
+    const NomClient = requete.body.NomClient;
+
+    const Pieces = requete.body.Pieces;
+
+    if (NomClient !== undefined ) {
+        utiliserDB(async(db) => {
+            await db.collection('demandespeciales').insertOne({NomClient: NomClient,Pieces: Pieces}            
+            );
+            reponse.status(200).send("Demande speciale ajoutée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la demande speciale n'a pas été ajoutée")
+        );;
+    } else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - NomClient: ${NomClient}
+            `);
+    }
+});
+
+app.delete('/api/demandespeciales/supprimer/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async(db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const resultat = await db.collection('demandespeciales').deleteOne({ _id: objectId });
+
+        reponse.status(200).send(`${resultat.deletedCount} demande special supprimée`);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur : la demande speciale n'a pas été supprimée")
+    );
+});
+
+
+app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
+
+    const id = requete.params.id;
+
+    const NomClient = requete.body.NomClient;
+
+    const Pieces = requete.body.Pieces;
+
+    if (NomClient !== undefined) {
+        utiliserDB(async(db) => {
+            var objectId = ObjectID.createFromHexString(id);
+            await db.collection('demandespeciales').updateOne({ _id: objectId }, {
+                '$set': {
+                    NomClient: NomClient,
+                    Pieces: Pieces
+                }
+            });
+
+            reponse.status(200).send("Demande speciale modifiée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la pièce n'a pas été modifiée")
+        );
+    } else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - NomClient: ${NomClient}`)
+        
+    }
+});
+
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));

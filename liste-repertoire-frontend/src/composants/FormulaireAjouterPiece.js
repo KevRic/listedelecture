@@ -79,8 +79,11 @@ function FormulaireAjouterPiece({ id }) {
                     onChange={(event) => setCategorie(event.target.value)} />
             </Form.Group>
 
-            <Button variant="primary" disabled={etatButtonAjouter}  onClick={() => AjouterCategorie()} >
+            <Button variant="primary mr-2" disabled={etatButtonAjouter}  onClick={() => AjouterCategorie()} >
                 Ajouter
+            </Button>
+            <Button variant="warning"  onClick={() => setCategorieArray([])} >
+               Reset Catégorie
             </Button>
         </Form>
         <Form className="mb-1">
