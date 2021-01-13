@@ -8,9 +8,11 @@ function ListePiecesAdmin({ pieces }) {
         var dictionnaireCategories = Object();
 
         pieces.forEach(piece => {
-            if (dictionnaireCategories[piece.catgorie] === undefined) {
-                dictionnaireCategories[piece.categorie] = true;
-            }
+            piece.Categorie.map(cat => {
+                if (dictionnaireCategories[cat] === undefined) {
+                    dictionnaireCategories[cat] = true;
+                }
+            })
         });
 
         const categories = Object.keys(dictionnaireCategories);
@@ -18,14 +20,14 @@ function ListePiecesAdmin({ pieces }) {
         return (
             <>
                 {categories.map((categorie) => {
-                    const piecesAssociees = pieces.filter((piece) => piece.categorie === categorie);
+                    const piecesAssociees = pieces.filter((piece) => piece.Categorie.includes(categorie));
                     return (
                         <div key={categorie}>
                             <h4>{categorie}</h4>
                             <ul>
                                 {
                                     piecesAssociees.map(piece => 
-                                    <li key={piece._id}>{piece.titre} - {piece.artiste}
+                                    <li key={piece._id}>{piece.Titre} - {piece.Artiste}
                                         <Link to={`/modifier/${piece._id}`}>
                                             <Button variant="success" className="m-1" size="sm" >Modifier</Button>
                                         </Link>
