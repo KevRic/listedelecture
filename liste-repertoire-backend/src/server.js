@@ -18,6 +18,8 @@ const utiliserDB = async(operations, reponse) => {
     }
 };
 
+//------------------------------- collection pieces
+
 app.get('/api/pieces', (requete, reponse) => {
     utiliserDB(async(db) => {
         const listePieces = await db.collection('pieces').find({}).sort({ Categorie: 1 }).toArray();
@@ -102,7 +104,7 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     );
 });
 
-// ------------- collection demandespecial
+// ---------------------------- collection demandespecial
 
 app.get('/api/demandespeciales', (requete, reponse) => {
     utiliserDB(async(db) => {
@@ -127,14 +129,17 @@ app.get('/api/demandespeciales/:id', (requete, reponse) => {
 
 app.post('/api/demandespeciales/ajouter', (requete, reponse) => {
 
+    const IdUtilisateur = requete.body.IdUtilisateur;
+
     const NomClient = requete.body.NomClient;
+
+    const Date = requete.body.Date;
 
     const Pieces = requete.body.Pieces;
 
-    if (NomClient !== undefined ) {
+    if (NomClient !== undefined) {
         utiliserDB(async(db) => {
-            await db.collection('demandespeciales').insertOne({NomClient: NomClient,Pieces: Pieces}            
-            );
+            await db.collection('demandespeciales').insertOne({ IdUtilisateur: IdUtilisateur, NomClient: NomClient, Etat: "true", Date: Date, Pieces: Pieces });
             reponse.status(200).send("Demande speciale ajoutée");
         }, reponse).catch(
             () => reponse.status(500).send("Erreur : la demande speciale n'a pas été ajoutée")
@@ -166,6 +171,8 @@ app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
 
     const NomClient = requete.body.NomClient;
 
+    const Etat = requete.body.Etat;
+
     const Pieces = requete.body.Pieces;
 
     if (NomClient !== undefined) {
@@ -174,6 +181,7 @@ app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
             await db.collection('demandespeciales').updateOne({ _id: objectId }, {
                 '$set': {
                     NomClient: NomClient,
+                    Etat: Etat,
                     Pieces: Pieces
                 }
             });
@@ -185,8 +193,66 @@ app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
     } else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - NomClient: ${NomClient}`)
-        
+
     }
 });
+
+//------------------------- collection utilisateurs
+
+app.get('/api/utilisateurs', (requete, reponse) => {
+    utiliserDB(async(db) => {
+        const listeUtilisateurs = await db.collection('utilisateurs').find({}).sort().toArray();
+        reponse.status(200).json(listeUtilisateurs);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );;
+});
+
+app.get('/api/utilisateurs/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async(db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const utilisateur = await db.collection('utilisateurs').findOne({ _id: objectId });
+        reponse.status(200).json(utilisateur);
+    }, reponse).catch(
+        () => reponse.status(500).send("Utilisateur non trouvée")
+    );
+});
+
+app.post('/api/utilisateurs/ajouter', (requete, reponse) => {
+
+    const { Nom, Prenom, Email, Password } = requete.body;
+
+    if (Nom !== undefined && Prenom !== undefined && Email !== undefined && Password !== undefined) {
+        utiliserDB(async(db) => {
+
+            let utilisateur = await db.collection('utilisateurs').findOne({ Email: Email });
+
+            if (utilisateur !== null) {
+
+                reponse.status(406).send("Le email existe deja veuillez choisir un nouveau email");
+
+            } else {
+                await db.collection('utilisateurs').insertOne({
+                    Nom: Nom,
+                    Prenom: Prenom,
+                    Email: Email,
+                    Password: Password
+                });
+                reponse.status(200).send("Utilisateur ajouter avec succes!");
+            }
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : L'utilisateur n'a pas été ajoutée")
+        );;
+    } else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - Nom: ${Nom}
+            - Prenom: ${Prenom}
+            - Email: ${Email}
+            - Password: ${Password}`);
+    }
+});
+
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
