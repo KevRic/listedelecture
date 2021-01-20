@@ -120,8 +120,20 @@ app.get('/api/demandespeciales/:id', (requete, reponse) => {
 
     utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
-        const infoPiece = await db.collection('demandespeciales').findOne({ _id: objectId });
-        reponse.status(200).json(infoPiece);
+        const infoUtilisateur = await db.collection('demandespeciales').findOne({ _id: objectId });
+        reponse.status(200).json(infoUtilisateur);
+    }, reponse).catch(
+        () => reponse.status(500).send("Demande special non trouvée")
+    );
+});
+
+app.get('/api/demandespeciales/utilisateur/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async(db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const infoUtilisateurs = await db.collection('demandespeciales').find({ IdUtilisateur: objectId }).toArray();
+        reponse.status(200).json(infoUtilisateurs);
     }, reponse).catch(
         () => reponse.status(500).send("Demande special non trouvée")
     );
