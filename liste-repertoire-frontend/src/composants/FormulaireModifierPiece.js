@@ -7,7 +7,6 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert'
 
 
@@ -90,7 +89,7 @@ function FormulaireModifierPiece({ id }) {
     }
 
     useEffect(() => {
-        const test = () => {
+        const verifierEtat = () => {
             if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
                 setEtatbuttonSoumettre(false);
             }
@@ -98,7 +97,7 @@ function FormulaireModifierPiece({ id }) {
                 setEtatbuttonSoumettre(true);
             }
         }
-        test();
+        verifierEtat();
     }, [titre, artiste, categorieArray])
     return (
         <>

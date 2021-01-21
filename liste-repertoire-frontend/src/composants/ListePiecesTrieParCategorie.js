@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import Alert from 'react-bootstrap/Alert';
 import ListGroup from 'react-bootstrap/ListGroup'
 
 function ListePiecesTrieParCategorie({ listePieces, typeTri }) {

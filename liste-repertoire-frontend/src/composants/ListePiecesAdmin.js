@@ -3,13 +3,13 @@ import Alert from 'react-bootstrap/Alert'
 import ListePiecesTrieParTitreOuArtiste  from './ListePiecesTrieParTitreOuArtiste';
 import ListePiecesTrieParCategorie from './ListePiecesTrieParCategorie';
 
-function ListePiecesAdmin({ pieces,typeTri }) {
+function ListePiecesAdmin({ pieces, typeTripieces }) {
     if (pieces?.length) {
-
-        if(typeTri === "Categorie" || typeTri === "CategorieDesc" )
+        console.log(typeTripieces);
+        if(typeTripieces === "Categorie" || typeTripieces === "CategorieDesc" )
         {
             return(
-                <ListePiecesTrieParCategorie listePieces={pieces} typeTri={typeTri} />       
+                <ListePiecesTrieParCategorie listePieces={pieces} typeTri={typeTripieces} />       
             );
         }
         else{

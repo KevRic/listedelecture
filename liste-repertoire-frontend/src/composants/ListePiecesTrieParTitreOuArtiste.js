@@ -22,12 +22,12 @@ function ListePiecesTrieParTitreOuArtiste({ listePieces }) {
                     </thead>
                     <tbody>
                         {
-                            listePieces.map((piece) => {
+                            listePieces.map((piece,key) => {
                                 let categorie = piece.Categorie;
                                 return (
-                                    <tr>
+                                    <tr >
 
-                                        <td>{piece.Titre}</td>
+                                        <td  key={piece._id}>{piece.Titre}</td>
                                         <td>{piece.Artiste}</td>
                                         <td>
                                             {categorie.map((catego) =>

@@ -22,7 +22,7 @@ const utiliserDB = async(operations, reponse) => {
 
 app.get('/api/pieces', (requete, reponse) => {
     utiliserDB(async(db) => {
-        const listePieces = await db.collection('pieces').find({}).sort({ Categorie: 1 }).toArray();
+        const listePieces = await db.collection('pieces').find({}).sort({ Titre: 1 }).toArray();
         reponse.status(200).json(listePieces);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
@@ -104,11 +104,11 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     );
 });
 
-// ---------------------------- collection demandespecial
+// ---------------------------- collection demandespeciale
 
 app.get('/api/demandespeciales', (requete, reponse) => {
     utiliserDB(async(db) => {
-        const listeDemande = await db.collection('demandespeciales').find({}).sort({ NomClient: 1 }).toArray();
+        const listeDemande = await db.collection('demandespeciales').find({}).sort({ Date: 1 }).toArray();
         reponse.status(200).json(listeDemande);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
