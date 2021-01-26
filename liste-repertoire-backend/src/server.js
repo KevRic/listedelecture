@@ -266,5 +266,34 @@ app.post('/api/utilisateurs/ajouter', (requete, reponse) => {
     }
 });
 
+app.post('/api/utilisateurs/authentifier', (requete, reponse) => {
+
+    const {  Email, Password } = requete.body;
+
+    if ( Email.length===0 || Password.length===0) {
+        reponse.status(412).send('Certains paramètres ne sont pas définis ');
+        
+    } else {
+        utiliserDB(async(db) => {
+
+            let utilisateur = await db.collection('utilisateurs').findOne({ Email: Email,Password:Password });
+
+            if (utilisateur!==null) {
+
+                reponse.status(200).json(utilisateur);
+
+            } else if (utilisateur===null) {
+                
+                reponse.status(401).send("Utilisateur n'existe pas !");
+            }
+            else{
+                reponse.status(500).send("Erreur survenue lors de la connection  !");
+            }
+        }, reponse).catch(
+            
+        );;
+    }
+});
+
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
