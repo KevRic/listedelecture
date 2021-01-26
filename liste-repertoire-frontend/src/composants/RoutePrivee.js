@@ -14,7 +14,7 @@ import {UtiliseAUTH} from '../Context/Auth'
           <Component {...props}/>
          ):(
 
-          <Redirect to="/"/>
+          <Redirect to="pageConnection"/>
          )
         }
         />
