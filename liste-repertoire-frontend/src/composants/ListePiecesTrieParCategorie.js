@@ -6,12 +6,12 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup'
 
-function ListePiecesTrieParCategorie({ listePieces, typeTri }) {
+function ListePiecesTrieParCategorie(props) {
 
     var dictionnaireCategories = Object();
 
-    listePieces.forEach(piece => {
-        piece.Categorie.map(cat => {
+    props.listePieces.forEach(piece => {
+        piece.Categorie.forEach(cat => {
             if (dictionnaireCategories[cat] === undefined) {
                 dictionnaireCategories[cat] = true;
             }
@@ -20,7 +20,7 @@ function ListePiecesTrieParCategorie({ listePieces, typeTri }) {
 
     const categories = Object.keys(dictionnaireCategories);
 
-    if (typeTri === "CategorieDesc") {
+    if (props.typeTridemande === "CategorieDesc") {
         categories.sort().reverse();
     }
     else {
@@ -31,7 +31,7 @@ function ListePiecesTrieParCategorie({ listePieces, typeTri }) {
         <>
            
             {categories.map((categorie) => {
-                const piecesAssociees = listePieces.filter((piece) => piece.Categorie.includes(categorie));
+                const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                 return (
                     <Row>
                         <Col>

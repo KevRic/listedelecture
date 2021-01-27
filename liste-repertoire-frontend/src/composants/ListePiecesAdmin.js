@@ -4,20 +4,12 @@ import {
     useEffect
 } from 'react';
 import Alert from 'react-bootstrap/Alert'
-import ListePiecesTrieParTitreOuArtiste from './ListePiecesTrieParTitreOuArtiste';
-import ListePiecesTrieParCategorie from './ListePiecesTrieParCategorie';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import TrierPiece from "../composants/TrierPiece";
+import AfficherListePiecesAdmin from '../composants/AfficherListePiecesAdmin'
 
 
 function ListePiecesAdmin() {
 
-
     const [listePieces, setListePieces] = useState([]);
-    const [typeTripieces, settypeTripieces] = useState('Titre');
 
 
     useEffect(() => {
@@ -30,37 +22,12 @@ function ListePiecesAdmin() {
     }, []);
 
 
-    function MiseAJourAffichage() {
-
-        if (typeTripieces === "Categorie" || typeTripieces === "CategorieDesc") {
-            return (
-                <>
-                    <ListePiecesTrieParCategorie listePieces={listePieces} typeTri={typeTripieces} />
-                </>
-            );
-        }
-        else {
-
-            return (
-                <ListePiecesTrieParTitreOuArtiste listePieces={listePieces} />
-            );
-        }
-    }
-
+   
     if (listePieces?.length) {
-        console.log(typeTripieces);
-
+        
         return (<>
 
-            <Row className="my-2 ">
-                <Col>
-                    <Link to="/ajouter">
-                        <Button>Ajouter une nouvelle pièce</Button>
-                    </Link>
-                </Col>
-                <TrierPiece listePieces={listePieces} setListePieces={setListePieces} typeTripieces={typeTripieces} settypeTripieces={settypeTripieces} />
-            </Row>
-            {MiseAJourAffichage()}
+    <AfficherListePiecesAdmin listePieces={listePieces} />
         </>)
     }
     else {

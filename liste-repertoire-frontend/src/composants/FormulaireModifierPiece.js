@@ -3,7 +3,6 @@ import {
     useState,
     useEffect
 } from 'react';
-
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
@@ -78,9 +77,7 @@ function FormulaireModifierPiece({ id }) {
             setAlertCategorie("La catégorie n'existe pas....");
             setAlertColor("danger");
         }
-
-
-        //document.getElementById(val).disabled = false;
+    
     };
     function AfficherRedirection() {
         if (rediriger === true) {
@@ -148,7 +145,7 @@ function FormulaireModifierPiece({ id }) {
                 </Form.Group>
 
                 <Button variant="primary" disabled={etatButtonsoumette} onClick={envoyerFormulaire} >
-                    Modifier
+                    Soumettre
             </Button>
 
             </Form>
