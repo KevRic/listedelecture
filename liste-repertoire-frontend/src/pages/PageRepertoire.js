@@ -21,7 +21,7 @@ function PageRepertoire() {
     return (
         <>
             <h1>Liste du répertoire</h1>
-            <ListePieces pieces={listePieces} />
+            <ListePieces listePieces={listePieces} />
         </>
     );
 }
