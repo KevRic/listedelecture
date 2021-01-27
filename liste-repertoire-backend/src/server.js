@@ -295,5 +295,32 @@ app.post('/api/utilisateurs/authentifier', (requete, reponse) => {
     }
 });
 
+app.post('/api/admins/authentifier', (requete, reponse) => {
 
+    const { NomUtilisateur, Password } = requete.body;
+
+    if ( NomUtilisateur.length===0 || Password.length===0) {
+        reponse.status(412).send('Certains paramètres ne sont pas définis ');
+        
+    } else {
+        utiliserDB(async(db) => {
+
+            let admin = await db.collection('admins').findOne({ NomUtilisateur: NomUtilisateur,Password:Password });
+
+            if (admin!==null) {
+
+                reponse.status(200).json(admin);
+
+            } else if (admin===null) {
+                
+                reponse.status(401).send("l'admin n'existe pas !");
+            }
+            else{
+                reponse.status(500).send("Erreur survenue lors de la connection  !");
+            }
+        }, reponse).catch(
+            
+        );;
+    }
+});
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));

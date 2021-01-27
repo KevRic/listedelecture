@@ -16,19 +16,16 @@ function FormulaireConnectionUtilisateur(){
     const [alertConnection, setAlertConnection] = useState('');
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const [rediriger, setRediriger] = useState(false);
-    const [utilisateurActuelle,setUtilisateurActuel]=useState({})
     const {setAuthentification}=UtiliseAUTH();
 
        const  SeConnecter = async () => {
             if(email.length===0|| password.length===0){
 
-                setAlertConnection("Attention tous les champs sont obligatoires ");
-                setAlertColorReponse("danger");
+                AfficherAlert("Attention tous les champs sont obligatoires ","danger");
             }
             else if(password.length<6)
             {
-                setAlertConnection("Mot de passe doit être 6 caractéres ou plus ");
-                setAlertColorReponse("danger");
+                AfficherAlert("Mot de passe doit être 6 caractéres ou plus","danger");
             }
             else
             {
@@ -42,29 +39,41 @@ function FormulaireConnectionUtilisateur(){
                     }
                     
                 }
-                ).then( (response) => {response.json().then(
+                ).then((response) =>{
+
                     
-                    data=> {
-                        if(response.status===200){
-                            setAuthentification(true);
-                            setUtilisateurActuel({_d:data._id,Nom:data.Nom,Prenom:data.Prenom,Email:data.Email,Password:data.Password});
-                            console.log(utilisateurActuelle);
-                            setAlertConnection("Vous êtes identifiés !!!");
-                            setAlertColorReponse("success");
-                        }
-                        else 
-                        {
-                            setAuthentification(false);
-                            setAlertConnection("l'utilisateur n'existe pas ");
-                            setAlertColorReponse("danger");
-                        }
+                    if(response.status===200){
                         
-                        console.log(response.status)
-                } )})
-            };
+                        AfficherAlert("Vous êtes identifiée","success");
+
+                      }
+                      else 
+                      {
+                        
+                        AfficherAlert("L'utilisateur n'existe pas ","danger");
+                      }
+                    response.json().then(
+
+                        data=>{
+                            if(response.status===200)
+                            {
+                                setAuthentification({estClient:true,estAdmin:false,id:data._id,utilisateur:data.Nom});
+                                setRediriger(true);
+                            }
+                           
+                        
+                          
+                        }
+                    )
+                })
+             }
             }
-        
-        
+
+            function AfficherAlert(message,alert)
+            {
+                setAlertConnection(message);
+                setAlertColorReponse(alert);
+            }
     
     function AfficherRedirection() {
         if (rediriger === true) {
