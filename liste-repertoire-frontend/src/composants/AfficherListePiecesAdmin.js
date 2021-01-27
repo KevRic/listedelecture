@@ -6,6 +6,7 @@ import AfficherTrierPieces from './AfficherTrierPieces';
 import ListePiecesTrieParCategorie from '../composants/ListePiecesTrieParCategorie';
 import ListePiecesTrieParTitreOuArtiste from '../composants/ListePiecesTrieParTitreOuArtiste';
 import { Link } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 
 
 function AfficherListePiecesAdmin(props) {
@@ -15,6 +16,19 @@ function AfficherListePiecesAdmin(props) {
 
     var copyListePieces = props.listePieces.slice();
 
+    const [motRechercher, setMotRechercher] = useState("");
+
+    const handleChange = event => {
+        setMotRechercher(event.target.value);
+    };
+
+
+    copyListePieces = copyListePieces.filter(piece =>
+        piece.Titre.includes(motRechercher) || piece.Artiste.includes(motRechercher) ||
+        piece.Categorie.includes(motRechercher)
+    );
+
+
     const types = {
         Titre: 'Titre',
         Artiste: 'Artiste',
@@ -23,6 +37,8 @@ function AfficherListePiecesAdmin(props) {
         Categorie: 'Titre',
         CategorieDesc: 'Titre',
     };
+
+
     const proprieteTri = types[typeTridemande];
     if (typeTridemande === "ArtisteDesc" || typeTridemande === "TitreDesc") {
         copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? 1 : -1);
@@ -54,17 +70,20 @@ function AfficherListePiecesAdmin(props) {
         <>
             <Row className="my-2 ">
                 <Col>
+                    <Form.Label>Recherche:</Form.Label>
+                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                </Col>
+                <Col></Col>
+                <Col style={{ textAlign: 'right' }}>
+                    <AfficherTrierPieces setTridemande={setTridemande} />
                     <Link to="/ajouter">
-                        <Button>Ajouter une nouvelle pièce</Button>
+                        <Button className="mt-2">Ajouter une nouvelle pièce</Button>
                     </Link>
                 </Col>
-                <AfficherTrierPieces setTridemande={setTridemande} />
             </Row>
             {MiseAJourAffichage()}
         </>
     );
-
-
 
 }
 

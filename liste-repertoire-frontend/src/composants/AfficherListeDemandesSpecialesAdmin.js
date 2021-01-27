@@ -8,11 +8,12 @@ import Button from 'react-bootstrap/Button';
 
 
 
+
 function AfficherDemandesSpecialesAdmin(props) {
 
-    const [typeTridemande, setTridemande] = useState('Date');
-
     var demandesSpeciales = props.demandesSpeciales.slice();
+
+    const [typeTridemande, setTridemande] = useState('Date');
 
     const types = {
         Date: 'Date',
@@ -53,12 +54,16 @@ function AfficherDemandesSpecialesAdmin(props) {
         envoyerFormulaire();
     }
 
+
+
+
     if (demandesSpeciales?.length) {
 
         return (
             <>
                 <Row className="my-2">
                     <AfficherTrierDemandeSpeciale setTridemande={setTridemande} />
+                    
                 </Row>
                 <Row>
                     <Col>
@@ -101,6 +106,11 @@ function AfficherDemandesSpecialesAdmin(props) {
                         </Table>
                     </Col>
                 </Row>
+
+
+
+
+ 
             </>
         );
 
