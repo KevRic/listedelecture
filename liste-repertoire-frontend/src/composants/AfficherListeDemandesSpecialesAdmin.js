@@ -1,19 +1,16 @@
 import AfficherTrierDemandeSpeciale from './AfficherTrierDemandeSpeciale';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-
-
-
 function AfficherDemandesSpecialesAdmin(props) {
 
     var demandesSpeciales = props.demandesSpeciales.slice();
 
-    const [typeTridemande, setTridemande] = useState('Date');
+    const [typeTridemande, setTridemande] = useState('DateDesc');
 
     const types = {
         Date: 'Date',
@@ -22,7 +19,7 @@ function AfficherDemandesSpecialesAdmin(props) {
         NomClientDesc: 'NomClient',
     };
     const proprieteTri = types[typeTridemande];
-    if (typeTridemande === "NomClient" || typeTridemande === "Date") {
+    if (typeTridemande === "NomClient" || typeTridemande === "DateDesc") {
         demandesSpeciales.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? -1 : 1)
     }
     else {
@@ -55,15 +52,42 @@ function AfficherDemandesSpecialesAdmin(props) {
     }
 
 
+    function EtatContraire(etat) {
 
+        var etatTexte = etat;
+
+        if (etatTexte !== "true") {
+            etatTexte = "Activer";
+        }
+        else {
+            etatTexte = "Désactiver"
+        }
+
+        return etatTexte;
+    }
+
+    function CouleurButton(etat) {
+
+        var etatCouleur = etat;
+
+        if (etatCouleur !== "true") {
+            etatCouleur = "success";
+        }
+        else {
+            etatCouleur = "danger"
+        }
+
+        return etatCouleur;
+    }
 
     if (demandesSpeciales?.length) {
 
         return (
             <>
                 <Row className="my-2">
-                    <AfficherTrierDemandeSpeciale setTridemande={setTridemande} />
-                    
+                    <Col style={{ textAlign: 'right' }}>
+                        <AfficherTrierDemandeSpeciale setTridemande={setTridemande} />
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
@@ -73,8 +97,7 @@ function AfficherDemandesSpecialesAdmin(props) {
                                     <th>Nom</th>
                                     <th>Date</th>
                                     <th>Etat</th>
-                                    <th>Titre</th>
-                                    <th>Artiste</th>
+                                    <th>Demande spéciale (Titre - Artiste)</th>
                                     <th>Manipulation</th>
                                 </tr>
                             </thead>
@@ -85,20 +108,29 @@ function AfficherDemandesSpecialesAdmin(props) {
                                             <td>{demandeSpeciale.NomClient}</td>
                                             <td>{demandeSpeciale.Date}</td>
                                             <td>{demandeSpeciale.Etat}</td>
-
-                                            <>{
-                                                demandeSpeciale.Pieces.map(piece => {
-                                                    return (
-                                                        <Fragment>
-                                                            <td key={piece}>{piece.Titre}</td>
-                                                            <td> {piece.Artiste}</td>
-                                                        </Fragment>
-
-                                                    );
-                                                }
-                                                )}
-                                            </>
-                                            <td><Button onClick={() => modifierEtat(demandeSpeciale)}>Etat Actif / Inactif</Button></td>
+                                            <td>
+                                                <Table bordered striped>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Titre</th>
+                                                            <th>Artiste</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            demandeSpeciale.Pieces.map((piece, index) =>
+                                                                <tr key={index}>
+                                                                    <td key={index + 1}>{index + 1}</td>
+                                                                    <td key={piece.Titre}>{piece.Titre}</td>
+                                                                    <td key={piece.Artiste}>{piece.Artiste}</td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                    </tbody>
+                                                </Table>
+                                            </td >
+                                            <td className="text-center"><Button variant={CouleurButton(demandeSpeciale.Etat)} onClick={() => modifierEtat(demandeSpeciale)}>{EtatContraire(demandeSpeciale.Etat)}</Button></td>
                                         </tr>
                                     )
                                 })}
@@ -110,7 +142,7 @@ function AfficherDemandesSpecialesAdmin(props) {
 
 
 
- 
+
             </>
         );
 

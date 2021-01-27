@@ -11,7 +11,6 @@ import { Form } from 'react-bootstrap';
 
 function AfficherListePiecesAdmin(props) {
 
-
     const [typeTridemande, setTridemande] = useState('Date');
 
     var copyListePieces = props.listePieces.slice();
@@ -22,12 +21,12 @@ function AfficherListePiecesAdmin(props) {
         setMotRechercher(event.target.value);
     };
 
-
+    // fonction rechercher
+    var motRechercherLC = motRechercher.toLowerCase();
     copyListePieces = copyListePieces.filter(piece =>
-        piece.Titre.includes(motRechercher) || piece.Artiste.includes(motRechercher) ||
-        piece.Categorie.includes(motRechercher)
+        piece.Titre.toLowerCase().includes(motRechercherLC) || piece.Artiste.toLowerCase().includes(motRechercherLC) ||
+        piece.Categorie.find(categorie => categorie.toLowerCase().includes(motRechercherLC))
     );
-
 
     const types = {
         Titre: 'Titre',

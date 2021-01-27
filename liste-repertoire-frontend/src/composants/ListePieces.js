@@ -7,7 +7,7 @@ function ListePieces({ pieces }) {
         var dictionnaireCategories = Object();
 
         pieces.forEach(piece => {
-            piece.Categorie.map(cat => {
+            piece.Categorie.forEach(cat => {
                 if (dictionnaireCategories[cat] === undefined) {
                     dictionnaireCategories[cat] = true;
                 }

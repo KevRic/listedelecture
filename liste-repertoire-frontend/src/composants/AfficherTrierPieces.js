@@ -7,7 +7,7 @@ function AfficherTrierPieces(props) {
 
 
              Trier:
-                        <select className="ml-2" onChange={(e) => props.setTridemande(e.target.value)}>
+                    <select className="ml-2" onChange={(e) => props.setTridemande(e.target.value)}>
                     <option value="Artiste">Artiste</option>
                     <option value="Titre">Titre</option>
                     <option value="Categorie">Categorie</option>
