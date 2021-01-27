@@ -6,7 +6,7 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
 
 
 function FormulaireModifierPiece({ id }) {
@@ -15,7 +15,6 @@ function FormulaireModifierPiece({ id }) {
     const [categorie, setCategorie] = useState('');
     const [rediriger, setRediriger] = useState(false);
     const [categorieArray, setCategorieArray] = useState([]);
-    const [etatButtonsoumette, setEtatbuttonSoumettre] = useState(false);
     const [alertCategorie, setAlertCategorie] = useState("");
     const [alertColor, setAlertColor] = useState("light");
 
@@ -30,18 +29,25 @@ function FormulaireModifierPiece({ id }) {
         chercherDonnees();
     }, [id]);
 
-    const envoyerFormulaire = async () => {
-        await fetch(`/api/pieces/modifier/${id}`, {
-            method: 'put',
-            body: JSON.stringify({ Titre: titre, Artiste: artiste, Categorie: categorieArray }),
-
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        setRediriger(true);
+    const envoyerFormulaire = async () => { 
+        if(artiste.length > 1 && titre.length > 1 && categorieArray.length > 0)
+        {
+            await fetch(`/api/pieces/modifier/${id}`, {
+                method: 'put',
+                body: JSON.stringify({ Titre: titre, Artiste: artiste, Categorie: categorieArray }),
+    
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setRediriger(true);
+        }
+        else{
+            setAlertCategorie("Pièce incomplète ... veuillez entrer des champs valides.");
+            setAlertColor("danger");
+        }
+       
     };
-
 
     function AjouterCategorie() {
         if (!categorieArray.some(x => x.toLowerCase() === categorie.toLowerCase())) {
@@ -85,17 +91,6 @@ function FormulaireModifierPiece({ id }) {
         }
     }
 
-    useEffect(() => {
-        const verifierEtat = () => {
-            if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
-                setEtatbuttonSoumettre(false);
-            }
-            else {
-                setEtatbuttonSoumettre(true);
-            }
-        }
-        verifierEtat();
-    }, [titre, artiste, categorieArray])
     return (
         <>
             {AfficherRedirection()}
@@ -144,7 +139,7 @@ function FormulaireModifierPiece({ id }) {
                     <Form.Label>{categorieArray.map((catego) => <p>{catego}</p>)}</Form.Label>
                 </Form.Group>
 
-                <Button variant="primary" disabled={etatButtonsoumette} onClick={envoyerFormulaire} >
+                <Button variant="primary" onClick={envoyerFormulaire} >
                     Soumettre
             </Button>
 

@@ -1,9 +1,8 @@
 import {
     React,
     useState,
-    useEffect
 } from 'react';
-
+import Alert from 'react-bootstrap/Alert';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
@@ -14,18 +13,28 @@ function FormulaireAjouterPiece({ id }) {
     const [categorie, setCategorie] = useState('');
     const [rediriger, setRediriger] = useState(false);
     const [categorieArray, setCategorieArray] = useState([]);
-    const [etatButtonsoumette, setEtatbuttonSoumettre] = useState(true);
-    const [etatButtonAjouter, setEtatbuttonAjouter] = useState(true);
+    const [alertCategorie, setAlertCategorie] = useState("");
+    const [alertColor, setAlertColor] = useState("light");
 
     const envoyerFormulaire = async () => {
-        await fetch(`/api/pieces/ajouter`, {
-            method: 'post',
-            body: JSON.stringify({ Titre: titre, Artiste: artiste, Categorie: categorieArray  }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        setRediriger(true);
+
+        if(artiste.length > 1 && titre.length > 1 && categorieArray.length > 0)
+        {
+            await fetch(`/api/pieces/ajouter`, {
+                method: 'post',
+                body: JSON.stringify({ Titre: titre, Artiste: artiste, Categorie: categorieArray  }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setRediriger(true);
+        }
+        else{
+            setAlertCategorie("Pièce incomplète ... veuillez entrer des champs valides.");
+            setAlertColor("danger");
+        }
+
+       
     };
 
     function AfficherRedirection() {
@@ -34,35 +43,32 @@ function FormulaireAjouterPiece({ id }) {
         }
     }
 
-    function AjouterCategorie(){      
-        var categorieTemp = categorieArray.slice();
-        categorieTemp.push(categorie);
-        setCategorieArray(categorieTemp);
-        setCategorie("");
-        setEtatbuttonAjouter(true);
+    function AjouterCategorie(){  
         
-    }
-
-    useEffect(() => {
-        const test = () => {
-            if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
-                setEtatbuttonSoumettre(false);
+        if (!categorieArray.some(x => x.toLowerCase() === categorie.toLowerCase())) {
+            if (categorie.length < 1) {
+                setAlertCategorie("La Catégorie ne peut pas contenir 0 caractère....");
+                setAlertColor("danger");
             }
-            else{
-                setEtatbuttonSoumettre(true);
-            }
-            
-            if(categorie.length > 0)
-            {
-                setEtatbuttonAjouter(false);
+            else {
+                var categorieTemp = categorieArray.slice();
+                categorieTemp.push(categorie);
+                setCategorieArray(categorieTemp);
+                setCategorie("");
+                setAlertCategorie("");
+                setAlertColor("light");
             }
         }
-        test();
-    }, [titre,artiste,categorie,categorieArray])
+        else {
+            setAlertCategorie("La catégorie existe déjà....");
+            setAlertColor("danger");
+        }        
+    }
     
     return (
     <>
         {AfficherRedirection()}
+        <Alert variant={alertColor}>{alertCategorie}</Alert>
         <Form className="mb-1">
             <Form.Group>
                 <Form.Label>Titre</Form.Label>
@@ -82,7 +88,7 @@ function FormulaireAjouterPiece({ id }) {
                     onChange={(event) => setCategorie(event.target.value)} />
             </Form.Group>
 
-            <Button variant="primary mr-2" disabled={etatButtonAjouter}  onClick={() => AjouterCategorie()} >
+            <Button variant="primary mr-2" onClick={() => AjouterCategorie()} >
                 Ajouter
             </Button>
             <Button variant="warning"  onClick={() => setCategorieArray([])} >
@@ -105,7 +111,7 @@ function FormulaireAjouterPiece({ id }) {
                         <Form.Label>{categorieArray.map((catego) => <p>{catego}</p>)}</Form.Label>
                     </Form.Group>
 
-                    <Button variant="primary" disabled={etatButtonsoumette} onClick={envoyerFormulaire} >
+                    <Button variant="primary" onClick={envoyerFormulaire} >
                 Soumettre
             </Button>
 
