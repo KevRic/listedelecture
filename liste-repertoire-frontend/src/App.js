@@ -7,11 +7,13 @@ import PageSupprimer from './pages/PageSupprimer';
 import Page404 from './pages/Page404';
 import BarreNavigation from './composants/BarreNavigation';
 import PageRegistre from './pages/PageRegistre';
-import  PageConnection from "./pages/PageConnection"
-import PageEspaceClient from './pages/PageEspaceClient'
-import RoutePriveeClient from './composants/RoutePriveeClient'
-import RoutePriveeAdmin from './composants/RoutePriveeAdmin'
-import {contexteAUTH} from './Context/Auth'
+import  PageConnection from "./pages/PageConnection";
+import PageEspaceClient from './pages/PageEspaceClient';
+import PageModifierDSClient from './pages/PageModifierDSClient';
+import PageAjouterDSClient from './pages/PageAjouterDSClient';
+import RoutePriveeClient from './composants/RoutePriveeClient';
+import RoutePriveeAdmin from './composants/RoutePriveeAdmin';
+import {contexteAUTH} from './Context/Auth';
 import {useState} from 'react';
 //import PageDemandeSpeciale from './pages/PageDemandeSpeciale';
 import './App.css';
@@ -36,8 +38,13 @@ function App() {
           <Route path="/ajouter" component={PageAjouter} />
           <Route path="/modifier/:id" component={PageModifier} />
           <Route path="/supprimer/:id" component={PageSupprimer} />
+
           <RoutePriveeAdmin path="/admin" component={PageAdmin}/>
+          
           <RoutePriveeClient path="/espaceClient" component={PageEspaceClient}/>
+          <RoutePriveeClient path="/ajouterDemandeSpecialeClient" component={PageAjouterDSClient}/>
+          <RoutePriveeClient path="/modifierDemandeSpecialeClient/:id" component={PageModifierDSClient}/>
+
           <Route path="/PageConnection" component={PageConnection} /> 
           <Route path="/PageRegistre" component={PageRegistre} /> 
           <Route component={Page404} />
