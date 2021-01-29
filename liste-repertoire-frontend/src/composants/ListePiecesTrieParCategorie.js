@@ -30,7 +30,7 @@ function ListePiecesTrieParCategorie(props) {
     return (
         <>
            
-            {categories.map((categorie) => {
+            {categories.map((categorie,key) => {
                 const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                 return (
                     <Row>
@@ -39,7 +39,7 @@ function ListePiecesTrieParCategorie(props) {
                                 <ListGroup.Item variant="dark" style={{ textAlign: "center", fontSize: "25px" }} className="mt-2">{categorie}</ListGroup.Item>
                                 <Table>
                                     <thead>
-                                        <tr>
+                                        <tr >
                                             <th>Titre</th>
                                             <th>Artiste</th>
                                             <th>Manipulation</th>
@@ -48,8 +48,8 @@ function ListePiecesTrieParCategorie(props) {
                                     <tbody>
                                         {
                                             piecesAssociees.map(piece =>
-                                                <tr>
-                                                    <td key={piece._id}>{piece.Titre}</td>
+                                                <tr key={piece._id}>
+                                                    <td >{piece.Titre}</td>
                                                     <td>{piece.Artiste}</td>
                                                     <td><Link to={`/modifier/${piece._id}`}>
                                                         <Button variant="success" className="m-1" size="sm" >Modifier</Button>

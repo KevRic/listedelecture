@@ -6,10 +6,10 @@ function AfficherTrierDemandeSpeciale({setTridemande}) {
 
             Trier:
                 <select className="ml-2" onChange={(e) => setTridemande(e.target.value)}>
-                    <option value="Date">Date</option>
-                    <option value="NomClient">NomClient</option>
-                    <option value="DateDesc">DateDesc</option>
-                    <option value="NomClientDesc">NomClientDesc</option>
+                <option value="DateDesc">DateDesc</option>
+                    <option value="Date">Date</option>             
+                    <option value="NomClientDesc">NomClientDesc</option>                  
+                    <option value="NomClient">NomClient</option>             
                 </select>
          
         </>)

@@ -16,7 +16,7 @@ function PageAdmin() {
 
 
             <>
-                <Tabs defaultActiveKey="tabAdministrateur" transition={false} id="choixTabadministrateur">
+                <Tabs  transition={false} id="choixTabadministrateur">
                     <Tab eventKey="admin" title="Manipulation de pieces">
                         <ListePiecesAdmin />
                     </Tab>

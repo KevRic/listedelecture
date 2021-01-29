@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 function AfficherDemandesSpecialesAdmin(props) {
 
-    var demandesSpeciales = props.demandesSpeciales.slice();
+    var demandesSpeciales = props.demandesSpeciales;
 
     const [typeTridemande, setTridemande] = useState('DateDesc');
 
@@ -16,10 +16,10 @@ function AfficherDemandesSpecialesAdmin(props) {
         Date: 'Date',
         NomClient: 'NomClient',
         DateDesc: 'Date',
-        NomClientDesc: 'NomClient',
+        NomClientDesc: 'NomClient'
     };
     const proprieteTri = types[typeTridemande];
-    if (typeTridemande === "NomClient" || typeTridemande === "DateDesc") {
+    if (typeTridemande === "NomClient" || typeTridemande === "Date") {
         demandesSpeciales.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? -1 : 1)
     }
     else {
@@ -47,8 +47,9 @@ function AfficherDemandesSpecialesAdmin(props) {
             });
 
         };
-        props.setCompteur(props.compteur + 1);
         envoyerFormulaire();
+        props.setCompteur(props.compteur + 1);
+        
     }
 
 
@@ -104,7 +105,7 @@ function AfficherDemandesSpecialesAdmin(props) {
                             <tbody>
                                 {demandesSpeciales.map((demandeSpeciale, key) => {
                                     return (
-                                        <tr key={demandeSpeciale.NomClient}>
+                                        <tr key={demandeSpeciale._id}>
                                             <td>{demandeSpeciale.NomClient}</td>
                                             <td>{demandeSpeciale.Date}</td>
                                             <td>{demandeSpeciale.Etat}</td>
@@ -121,9 +122,9 @@ function AfficherDemandesSpecialesAdmin(props) {
                                                         {
                                                             demandeSpeciale.Pieces.map((piece, index) =>
                                                                 <tr key={index}>
-                                                                    <td key={index + 1}>{index + 1}</td>
-                                                                    <td key={piece.Titre}>{piece.Titre}</td>
-                                                                    <td key={piece.Artiste}>{piece.Artiste}</td>
+                                                                    <td >{index + 1}</td>
+                                                                    <td >{piece.Titre}</td>
+                                                                    <td >{piece.Artiste}</td>
                                                                 </tr>
                                                             )
                                                         }
