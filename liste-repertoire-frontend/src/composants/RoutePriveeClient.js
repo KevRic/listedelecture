@@ -5,19 +5,13 @@ import {UtiliseAUTH} from '../Context/Auth';
 
   function RoutePriveeClient( {component:Component,...reste}){
 
-    const {authentification}=UtiliseAUTH();
+    const {authentificationUtilisateur}=UtiliseAUTH();
     return (
-      <Route {...reste} render={props => {
-          
-          if (authentification.estClient) {
-  
-            return <Component {...props} />
-          }
-          else{
-
-            return <Redirect to="pageConnection" />
-          }
-      }} />
+      <Route {...reste} render={props => 
+        authentificationUtilisateur?<Component {...props} />:(
+          <Redirect to="pageConnection" />
+       )
+      } />
   );
     
   }

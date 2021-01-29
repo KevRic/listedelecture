@@ -1,13 +1,11 @@
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { React,useState,useEffect} from 'react'
+import { React,useState} from 'react'
 import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
 import {UtiliseAUTH} from '../Context/Auth'
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
 
 function FormulaireConnectionUtilisateur(){
 
@@ -16,7 +14,9 @@ function FormulaireConnectionUtilisateur(){
     const [alertConnection, setAlertConnection] = useState('');
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const [rediriger, setRediriger] = useState(false);
-    const {setAuthentification}=UtiliseAUTH();
+    const {setAuthentificationUtilisateur}=UtiliseAUTH();
+    const {setNomUtilisateur}=UtiliseAUTH();
+    const {setIdUtilisateur}=UtiliseAUTH();
 
        const  SeConnecter = async () => {
             if(email.length===0|| password.length===0){
@@ -41,7 +41,6 @@ function FormulaireConnectionUtilisateur(){
                 }
                 ).then((response) =>{
 
-                    
                     if(response.status===200){
                         
                         AfficherAlert("Vous êtes identifiée","success");
@@ -57,12 +56,11 @@ function FormulaireConnectionUtilisateur(){
                         data=>{
                             if(response.status===200)
                             {
-                                setAuthentification({estClient:true,estAdmin:false,id:data._id,utilisateur:data.Nom});
+                                setAuthentificationUtilisateur(true);
+                                setNomUtilisateur(data.Nom);
+                                setIdUtilisateur(data._id);
                                 setRediriger(true);
                             }
-                           
-                        
-                          
                         }
                     )
                 })
@@ -88,7 +86,7 @@ function FormulaireConnectionUtilisateur(){
     {AfficherRedirection()}
     <Form className="width">
             <Form.Group controlId="formBasicEmail">
-                <Form.Label>Nom utilisateur :  </Form.Label>
+                <Form.Label>Email :  </Form.Label>
                 <Form.Control type="email" value={email} required
                   
                    onChange={(event) => setEmail(event.target.value)}  />
@@ -103,11 +101,11 @@ function FormulaireConnectionUtilisateur(){
                  onChange={(event) => setPassword(event.target.value)}  />
             </Form.Group>
             <Button variant="primary"  onClick={()=>SeConnecter()} > Connecter</Button>
-            <Link to="pageRegistre" className="btn btn-link pr-0">Registre?</Link>
+            <Link to="pageRegistre" className="btn btn-link pr-0">Créer un compte?</Link>
             
- </Form>
+   </Form>
    <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>
-        </>
+ </>
     )
 }
 

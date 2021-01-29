@@ -1,12 +1,10 @@
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { React,useState,useEffect} from 'react'
+import { React,useState} from 'react'
 import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
 import {UtiliseAUTH} from '../Context/Auth'
 import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 
 function FormulaireConnectionAdmin(){
@@ -16,7 +14,7 @@ function FormulaireConnectionAdmin(){
     const [alertConnection, setAlertConnection] = useState('');
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const [rediriger, setRediriger] = useState(false);
-    const {setAuthentification}=UtiliseAUTH();
+    const {setAuthentificationAdmin}=UtiliseAUTH();
 
        const  SeConnecter = async () => {
             if(nomUtilisateur.length===0|| password.length===0){
@@ -53,7 +51,7 @@ function FormulaireConnectionAdmin(){
                         data=>{
                             if(response.status===200)
                             {
-                                setAuthentification({estClient:true,estAdmin:true,id:data._id,utilisateur:data.Nom});
+                                setAuthentificationAdmin(true);
                                 setRediriger(true);
                             }
                         }
@@ -81,7 +79,7 @@ function FormulaireConnectionAdmin(){
     {AfficherRedirection()}
     <Form className="width">
             <Form.Group controlId="formBasicEmail">
-                <Form.Label>Nom utilisateur :  </Form.Label>
+                <Form.Label>Nom d'utilisateur :  </Form.Label>
                 <Form.Control type="text" value={nomUtilisateur} required
                   
                    onChange={(event) => setnomUtilisateur(event.target.value)}  />
@@ -96,7 +94,6 @@ function FormulaireConnectionAdmin(){
                  onChange={(event) => setPassword(event.target.value)}  />
             </Form.Group>
             <Button variant="primary"  onClick={()=>SeConnecter()} > Connecter</Button>
-            <Link to="pageRegistre" className="btn btn-link pr-0">Registre?</Link>
             
  </Form>
    <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>

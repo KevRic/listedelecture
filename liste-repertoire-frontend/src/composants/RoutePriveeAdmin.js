@@ -3,21 +3,14 @@ import {Route,Redirect} from 'react-router-dom';
 import {UtiliseAUTH} from '../Context/Auth';
 
   function RoutePriveeAdmin( {component:Component,...reste}){
-    const {authentification}=UtiliseAUTH();
+    const {authentificationAdmin}=UtiliseAUTH();
     return (
-      <Route {...reste} render={props => {
+      <Route {...reste} render={props => 
+          authentificationAdmin?<Component {...props} />:(
+             <Redirect to="pageConnection" />
+          )
           
-          if (!authentification.estAdmin) {
-              
-              return <Redirect to="pageConnection" />
-          }
-
-          if (authentification.estAdmin) {
-  
-            return <Component {...props} />
-          }
-          
-      }} />
+      } />
   );
     
   }

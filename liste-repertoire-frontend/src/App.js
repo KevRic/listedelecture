@@ -26,9 +26,13 @@ import {
 } from 'react-router-dom';
 
 function App() {
-  const [authentification,setAuthentification]=useState({estClient:false,estadmin:false,id:"",utilisateur:""});
+  const [authentificationUtilisateur,setAuthentificationUtilisateur]=useState(false);
+  const [authentificationAdmin,setAuthentificationAdmin]=useState(false);
+  const [IdUtilisateur,setIdUtilisateur]=useState('');
+  const [nomUtilisateur,setNomUtilisateur]=useState('');
   return (
-    <contexteAUTH.Provider value={{authentification,setAuthentification}}>
+    <contexteAUTH.Provider value={{authentificationUtilisateur,setAuthentificationUtilisateur,authentificationAdmin,setAuthentificationAdmin,
+    IdUtilisateur,setIdUtilisateur,nomUtilisateur,setNomUtilisateur }}>
     <Router>
       <Container>
         <BarreNavigation />

@@ -1,15 +1,14 @@
 
 import {
   React,
-  useState,
-  useEffect
+  useState
 } from 'react';
 
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
-import { Redirect,Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 function FormulaireAjouterUtilisateur() {
   const [validated, setValidated] = useState(false);
@@ -18,10 +17,15 @@ function FormulaireAjouterUtilisateur() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirm] = useState('');
-  const [rediriger, setRediriger] = useState(false);
   const [alertRegistre, setAlertRegistre] = useState("");
   const [alertColorRegistre, setAlertColorRegistre] = useState("light");
   const [etatBouton, setEtatBouton] = useState(true);
+
+  function AfficherAlert(message,alert)
+  {
+      setAlertRegistre(message);
+      setAlertColorRegistre(alert);
+  }
 
   const AjouterUtilisateur = async () => {
 
@@ -33,42 +37,33 @@ function FormulaireAjouterUtilisateur() {
         }
     }).then((response)=>{
       if(response.status===200){
-        setAlertRegistre("l'utilisateur est ajouté avec succes");
-        setAlertColorRegistre("success");
+        AfficherAlert("l'utilisateur est ajouté avec succes","success");
       }else if(response.status===406){
-        setAlertRegistre("Le email existe deja veuillez choisir un nouveau email");
-        setAlertColorRegistre("warning");
+        AfficherAlert("Le email existe deja veuillez choisir un nouveau email","warning");
       }
       else{
-        setAlertRegistre("L'utilisateur n'a pas été ajoutée");
-        setAlertColorRegistre("danger");
+        AfficherAlert("L'utilisateur n'a pas été ajoutée","danger");
       }
     })
-    setRediriger(true);
     setEtatBouton(true);
 };
 
 function VerifierDonnesEntresParUtilisateur(){
       if (nom.length===0 || prenom.length===0 || email.length===0 || confirmPassword.length===0) {
-          setAlertRegistre("Tous les champs sont obligatoire");
-          setAlertColorRegistre("danger");
+          AfficherAlert("Tous les champs sont obligatoire","danger");
           setEtatBouton(true);
       }
   else if (password!==confirmPassword){
-          setAlertRegistre("mots de passe différentes");
-          setAlertColorRegistre("danger");
+         AfficherAlert("mots de passe différentes","danger");
           setEtatBouton(true);
       }
   else if(password.length<6)
        {
-              setAlertRegistre("Mot de passe doit être 6 caractéres ou plus ");
-              setAlertColorRegistre("danger");
+         AfficherAlert("Mot de passe doit être 6 caractéres ou plus","danger");
         }
   else{
-      setAlertRegistre("Information validés");
-      setAlertColorRegistre("success");
+      AfficherAlert("Information validés","success");
       setEtatBouton(false);
-        
       }
       
   }
@@ -105,20 +100,20 @@ function VerifierDonnesEntresParUtilisateur(){
           <Form.Control type="email"  required value={email} onChange={(event) => setEmail(event.target.value)} />
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom04">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Mot de passe </Form.Label>
           <Form.Control type="password" required value={password} onChange={(event) => setPassword(event.target.value)}/>
           <Form.Control.Feedback length="6" type="invalid">
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom05">
-          <Form.Label>Confirm pasword</Form.Label>
+          <Form.Label>Confirmation mot de passe</Form.Label>
           <Form.Control type="password"  required value={confirmPassword} onChange={(event) => setConfirm(event.target.value)} />
         </Form.Group>
       </Form.Row>
       <Form.Group>
       </Form.Group>
       <Button  className="mr-4" onClick={()=>VerifierDonnesEntresParUtilisateur()}>Vérifier</Button>
-      <Button variant="primary" disabled={etatBouton} onClick={AjouterUtilisateur} >Enregistre</Button>
+      <Button variant="primary" disabled={etatBouton} onClick={AjouterUtilisateur} >Enregistrer</Button>
        <Link to="pageConnection" className="btn btn-link pr-0">Connection?</Link>
       
     </Form>

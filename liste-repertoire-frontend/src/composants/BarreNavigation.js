@@ -2,7 +2,7 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-
+import Button from 'react-bootstrap/Button'
 function BarreNavigation() {
     return (
         <Navbar bg="light" expand="sm" className="mb-4">
@@ -26,10 +26,10 @@ function BarreNavigation() {
 
                 </Nav>
                 <LinkContainer to="/pageConnection">
-                       <Nav.Link className="mr-0">Connection</Nav.Link>
+                       <Nav.Link className="mr-0"><Button variant={"info"}>Connection</Button></Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/pageRegistre">
-                       <Nav.Link className="mr-0">Registre</Nav.Link>
+                       <Nav.Link className="mr-0"><Button variant={"success"}>Créer un compte</Button></Nav.Link>
                 </LinkContainer>
             </Navbar.Collapse>
             
