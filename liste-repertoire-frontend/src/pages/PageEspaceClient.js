@@ -8,8 +8,7 @@ import { UtiliseAUTH } from '../Context/Auth';
 
 
 function PageEspaceClient() {
-   const { authentification } = UtiliseAUTH();
-   const IdUtilisateur = authentification.id;
+   const { IdUtilisateur } = UtiliseAUTH();
    const [listeDemandesSpecialesClient, setListeDemandes] = useState([]);
 
    useEffect(() => {
