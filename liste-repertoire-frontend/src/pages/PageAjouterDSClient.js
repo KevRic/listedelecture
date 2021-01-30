@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { UtiliseAUTH } from '../Context/Auth';
 import AfficherTrierPieces from '../composants/AfficherTrierPieces';
 import { Form } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/Alert';
 
 function PageAjouterDSClient() {
     const [etatButtonSoumettre, setEtatbuttonSoumettre] = useState(true);
@@ -85,33 +87,40 @@ function PageAjouterDSClient() {
     return (
         <>
             {AfficherRedirection()}
-            <Row>
-                <Col md="auto"><h2>Ajouter une nouvelle demande spéciale</h2></Col>
-                <Col>
-                    <Button variant="primary" disabled={etatButtonSoumettre} onClick={envoyerFormulaire} >
-                        Ajouter la demande spéciale
-                    </Button>
-                </Col>
-                <Col className="text-right">
-                    <Link to="/espaceClient">
-                        <Button variant={'danger'}>Annuler</Button>
-                    </Link>
-                </Col>
-            </Row>
-            <Row className="my-2">
-                <Col md="auto">
-                    <Form.Label>Recherche: </Form.Label>
-                </Col>
-                <Col>
-                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
-                </Col>
-                <Col style={{ textAlign: 'right' }}>
-                    <AfficherTrierPieces setTridemande={setTridemande} />
-                </Col>
-            </Row>
-            <br />
-            <FormulaireAjouterDemandeSpeciale listePieces={copyListePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre} typeTridemande={typeTridemande} />
-
+            <Container fluid>
+                <Row>
+                    <Col md="auto">
+                        <Alert variant="dark">
+                            <h2 style={{ fontFamily: 'Rock' }}>Ajouter une nouvelle demande spéciale</h2>
+                        </Alert>
+                    </Col>
+                    <Col className="text-right">
+                        <Link to="/espaceClient">
+                            <Button variant={'danger'}>Annuler</Button>
+                        </Link>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-right">
+                        <Button variant="primary" disabled={etatButtonSoumettre} onClick={envoyerFormulaire} >
+                            Ajouter la demande spéciale
+                        </Button>
+                    </Col>
+                </Row>
+                <Row className="my-2">
+                    <Col md="1">
+                        <Form.Label>Recherche: </Form.Label>
+                    </Col>
+                    <Col>
+                        <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                    </Col>
+                    <Col style={{ textAlign: 'right' }}>
+                        <AfficherTrierPieces setTridemande={setTridemande} />
+                    </Col>
+                </Row>
+                <br />
+                <FormulaireAjouterDemandeSpeciale listePieces={copyListePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre} typeTridemande={typeTridemande} />
+            </Container>
         </>
     );
 }
