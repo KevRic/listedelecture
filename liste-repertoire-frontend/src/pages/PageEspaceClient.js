@@ -23,7 +23,6 @@ function PageEspaceClient() {
    }, [IdUtilisateur]);
 
    return (
-
       <Container fluid>
          <Row>
             <Col>
@@ -44,13 +43,6 @@ function PageEspaceClient() {
          </Row>
          <ListeDemandesSpecialesClient demandesSpeciales={listeDemandesSpecialesClient} />
       </Container>
-
-
-
-
-
-
-
    )
 }
 

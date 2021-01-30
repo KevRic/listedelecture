@@ -3,9 +3,12 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { React, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-
+import AfficherTrierPieces from '../composants/AfficherTrierPieces';
+import { Form } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Alert from 'react-bootstrap/Alert';
 
 function PageModifierDSClient({ match }) {
 
@@ -15,6 +18,8 @@ function PageModifierDSClient({ match }) {
     const [etatButtonSoumettre, setEtatbuttonSoumettre] = useState(true);
     const [listePieces, setListePieces] = useState([]);
     const [piecesDebutModification, setPiecesDebutModification] = useState([]);
+    const [typeTridemande, setTridemande] = useState('Artiste');
+    const [motRechercher, setMotRechercher] = useState("");
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -49,44 +54,80 @@ function PageModifierDSClient({ match }) {
         setRediriger(true);
     };
 
-    // useEffect(() => {
-    //     const test = () => {
-    //         if (artiste.length > 1 && titre.length > 1 && categorieArray.length > 0) {
-    //             setEtatbuttonSoumettre(false);
-    //         }
-    //         else {
-    //             setEtatbuttonSoumettre(true);
-    //         }
-    //     }
-    //     test();
-    // }, [titre, artiste, categorieArray])
-
     function AfficherRedirection() {
         if (rediriger === true) {
             return <Redirect to="/espaceClient" />
         }
     }
 
+    var copyListePieces = listePieces.slice();
+
+    const handleChange = event => {
+        setMotRechercher(event.target.value);
+    };
+
+    // fonction rechercher
+    var motRechercherLC = motRechercher.toLowerCase();
+    copyListePieces = copyListePieces.filter(piece =>
+        piece.Titre.toLowerCase().includes(motRechercherLC) || piece.Artiste.toLowerCase().includes(motRechercherLC) ||
+        piece.Categorie.find(categorie => categorie.toLowerCase().includes(motRechercherLC))
+    );
+
+    const types = {
+        Titre: 'Titre',
+        Artiste: 'Artiste',
+        TitreDesc: 'Titre',
+        ArtisteDesc: 'Artiste',
+        Categorie: 'Titre',
+        CategorieDesc: 'Titre',
+    };
+
+
+    const proprieteTri = types[typeTridemande];
+    if (typeTridemande === "ArtisteDesc" || typeTridemande === "Titre") {
+        copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? 1 : -1);
+    }
+    else {
+        copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? -1 : 1);
+    }
+
 
     return (
         <>
-            {AfficherRedirection()}
-
-            <Row>
-                <Col md="auto"><h2>Modifier votre demande spéciale</h2></Col>
-                <Col>
-                    <Button variant="primary" disabled={etatButtonSoumettre} onClick={envoyerFormulaire} >
-                        Modifier la demande spéciale
-                    </Button>
-                </Col>
-                <Col className="text-right">
-                    <Link to="/espaceClient">
-                        <Button variant={'danger'}>Annuler</Button>
-                    </Link>
-                </Col>
-            </Row>
-            <br />
-            <FormulaireModifierDemandeSpeciale listePieces={listePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre} piecesDebutModification={piecesDebutModification} />
+            { AfficherRedirection()}
+            < Container fluid >
+                <Row>
+                    <Col md="auto">
+                        <Alert variant="dark">
+                            <h2 style={{ fontFamily: 'Rock' }}>Modifier votre demande spéciale</h2>
+                        </Alert>
+                    </Col>
+                    <Col md="auto">
+                        <Button variant="primary" disabled={etatButtonSoumettre} onClick={envoyerFormulaire} >
+                            Modifier la demande spéciale
+                        </Button>
+                    </Col>
+                    <Col className="text-right">
+                        <Link to="/espaceClient">
+                            <Button variant={'danger'}>Annuler</Button>
+                        </Link>
+                    </Col>
+                </Row>
+                <br/>
+                <Row className="my-2">
+                    <Col md="1">
+                        <Form.Label>Recherche: </Form.Label>
+                    </Col>
+                    <Col className="text-left">
+                        <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                    </Col>
+                    <Col className="text-right">
+                        <AfficherTrierPieces setTridemande={setTridemande} />
+                    </Col>
+                </Row>
+                <br />
+                <FormulaireModifierDemandeSpeciale listePieces={copyListePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre} piecesDebutModification={piecesDebutModification} typeTridemande={typeTridemande} />
+            </Container >
         </>
     );
 }
