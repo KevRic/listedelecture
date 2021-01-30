@@ -6,13 +6,18 @@ import Row from 'react-bootstrap/Row';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { UtiliseAUTH } from '../Context/Auth';
+import AfficherTrierPieces from '../composants/AfficherTrierPieces';
+import { Form } from 'react-bootstrap';
 
 function PageAjouterDSClient() {
     const [etatButtonSoumettre, setEtatbuttonSoumettre] = useState(true);
     const [rediriger, setRediriger] = useState(false);
     const [listePieces, setListePieces] = useState([]);
     const [pieces, setPieces] = useState([]);
-    const { authentification } = UtiliseAUTH();
+    const { IdUtilisateur } = UtiliseAUTH();
+    const { nomUtilisateur } = UtiliseAUTH();
+    const [typeTridemande, setTridemande] = useState('Artiste');
+    const [motRechercher, setMotRechercher] = useState("");
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -31,7 +36,7 @@ function PageAjouterDSClient() {
 
         await fetch(`/api/demandespeciales/ajouter`, {
             method: 'post',
-            body: JSON.stringify({ IdUtilisateur: `${authentification.id}`, NomClient: `${authentification.utilisateur}`, Date: date, Pieces: piecesTemp }),
+            body: JSON.stringify({ IdUtilisateur: `${IdUtilisateur}`, NomClient: `${nomUtilisateur}`, Date: date, Pieces: piecesTemp }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -44,6 +49,38 @@ function PageAjouterDSClient() {
             return <Redirect to="/espaceClient" />
         }
     }
+
+    var copyListePieces = listePieces.slice();
+
+    const handleChange = event => {
+        setMotRechercher(event.target.value);
+    };
+
+    // fonction rechercher
+    var motRechercherLC = motRechercher.toLowerCase();
+    copyListePieces = copyListePieces.filter(piece =>
+        piece.Titre.toLowerCase().includes(motRechercherLC) || piece.Artiste.toLowerCase().includes(motRechercherLC) ||
+        piece.Categorie.find(categorie => categorie.toLowerCase().includes(motRechercherLC))
+    );
+
+    const types = {
+        Titre: 'Titre',
+        Artiste: 'Artiste',
+        TitreDesc: 'Titre',
+        ArtisteDesc: 'Artiste',
+        Categorie: 'Titre',
+        CategorieDesc: 'Titre',
+    };
+
+
+    const proprieteTri = types[typeTridemande];
+    if (typeTridemande === "ArtisteDesc" || typeTridemande === "Titre") {
+        copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? 1 : -1);
+    }
+    else {
+        copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? -1 : 1);
+    }
+
 
     return (
         <>
@@ -61,8 +98,19 @@ function PageAjouterDSClient() {
                     </Link>
                 </Col>
             </Row>
+            <Row className="my-2">
+                <Col md="auto">
+                    <Form.Label>Recherche: </Form.Label>
+                </Col>
+                <Col>
+                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                </Col>
+                <Col style={{ textAlign: 'right' }}>
+                    <AfficherTrierPieces setTridemande={setTridemande} />
+                </Col>
+            </Row>
             <br />
-            <FormulaireAjouterDemandeSpeciale listePieces={listePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre}/>
+            <FormulaireAjouterDemandeSpeciale listePieces={copyListePieces} setPieces={setPieces} pieces={pieces} setEtatbuttonSoumettre={setEtatbuttonSoumettre} typeTridemande={typeTridemande} />
 
         </>
     );
