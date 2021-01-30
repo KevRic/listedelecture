@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListeDemandesSpecialesClient from '../composants/ListeDemandesSpecialesClient';
 import { UtiliseAUTH } from '../Context/Auth';
+import Alert from 'react-bootstrap/Alert';
+import Container from 'react-bootstrap/Container';
 
 
 function PageEspaceClient() {
-   const { IdUtilisateur } = UtiliseAUTH();
+   const { IdUtilisateur , nomUtilisateur } = UtiliseAUTH();
    const [listeDemandesSpecialesClient, setListeDemandes] = useState([]);
 
    useEffect(() => {
@@ -21,18 +23,34 @@ function PageEspaceClient() {
    }, [IdUtilisateur]);
 
    return (
-      <>
+
+      <Container fluid>
          <Row>
-            <Col><h2>Liste de vos Demandes Spéciales</h2></Col>
-            <Col className="text-center">
+            <Col>
+               <Alert variant="dark">
+                  <h1 style={{ fontFamily: 'Rock' }}>Bienvenue {nomUtilisateur}</h1>
+               </Alert>
+            </Col>
+         </Row>
+         <Row>
+            <Col>
+               <h5 style={{ fontFamily: 'Rock' }}>Liste de vos Demandes Spéciales :</h5>
+            </Col>
+            <Col className="text-right">
                <Link to="/ajouterDemandeSpecialeClient">
-                  <Button>Ajouter une nouvelle demande spéciale</Button>
+                  <Button variant="primary" className="mb-2">Ajouter une nouvelle demande spéciale</Button>
                </Link>
             </Col>
          </Row>
          <ListeDemandesSpecialesClient demandesSpeciales={listeDemandesSpecialesClient} />
+      </Container>
 
-      </>
+
+
+
+
+
+
    )
 }
 

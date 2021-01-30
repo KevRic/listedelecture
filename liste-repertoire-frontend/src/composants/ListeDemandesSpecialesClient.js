@@ -12,8 +12,8 @@ function ListeDemandesSpecialesClient({ demandesSpeciales }) {
                 <Table bordered striped>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Demande Spéciale (Titre - Artiste)</th>
+                            <th >#</th>
+                            <th >Demande Spéciale (Titre - Artiste)</th>
                             <th className="text-center">Modification</th>
                         </tr>
                     </thead>

@@ -6,7 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const utiliserDB = async (operations, reponse) => {
+const utiliserDB = async(operations, reponse) => {
     try {
         const client = await MongoClient.connect('mongodb://localhost:27017', { useUnifiedTopology: true });
         const db = client.db('listedelecture');
@@ -21,7 +21,7 @@ const utiliserDB = async (operations, reponse) => {
 //------------------------------- collection pieces
 
 app.get('/api/pieces', (requete, reponse) => {
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         const listePieces = await db.collection('pieces').find({}).sort({ Titre: 1 }).toArray();
         reponse.status(200).json(listePieces);
     }, reponse).catch(
@@ -32,7 +32,7 @@ app.get('/api/pieces', (requete, reponse) => {
 app.get('/api/pieces/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const infoPiece = await db.collection('pieces').findOne({ _id: objectId });
         reponse.status(200).json(infoPiece);
@@ -45,7 +45,7 @@ app.post('/api/pieces/ajouter', (requete, reponse) => {
     const { Titre, Artiste, Categorie } = requete.body;
 
     if (Titre !== undefined && Artiste !== undefined && Categorie !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
             await db.collection('pieces').insertOne({
                 Titre: Titre,
                 Artiste: Artiste,
@@ -69,7 +69,7 @@ app.put('/api/pieces/modifier/:id', (requete, reponse) => {
     const id = requete.params.id;
 
     if (Titre !== undefined && Artiste !== undefined && Categorie !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('pieces').updateOne({ _id: objectId }, {
                 '$set': {
@@ -94,7 +94,7 @@ app.put('/api/pieces/modifier/:id', (requete, reponse) => {
 app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const resultat = await db.collection('pieces').deleteOne({ _id: objectId });
 
@@ -107,7 +107,7 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
 // ---------------------------- collection demandespeciale
 
 app.get('/api/demandespeciales', (requete, reponse) => {
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         const listeDemandes = await db.collection('demandespeciales').find({}).sort({ Date: 1 }).toArray();
         reponse.status(200).json(listeDemandes);
     }, reponse).catch(
@@ -118,7 +118,7 @@ app.get('/api/demandespeciales', (requete, reponse) => {
 app.get('/api/demandespeciales/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const demandeSpeciale = await db.collection('demandespeciales').findOne({ _id: objectId });
         reponse.status(200).json(demandeSpeciale);
@@ -130,7 +130,7 @@ app.get('/api/demandespeciales/:id', (requete, reponse) => {
 app.get('/api/demandespeciales/utilisateur/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const demandeSpeciales = await db.collection('demandespeciales').find({ IdUtilisateur: objectId }).toArray();
         reponse.status(200).json(demandeSpeciales);
@@ -147,7 +147,7 @@ app.post('/api/demandespeciales/ajouter', (requete, reponse) => {
     const Pieces = requete.body.Pieces;
 
     if (NomClient !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
             await db.collection('demandespeciales').insertOne({ IdUtilisateur: IdUtilisateur, NomClient: NomClient, Etat: "true", Date: Date, Pieces: Pieces });
             reponse.status(200).send("Demande speciale ajoutée");
         }, reponse).catch(
@@ -163,7 +163,7 @@ app.post('/api/demandespeciales/ajouter', (requete, reponse) => {
 app.delete('/api/demandespeciales/supprimer/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const resultat = await db.collection('demandespeciales').deleteOne({ _id: objectId });
 
@@ -181,7 +181,7 @@ app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
     const Pieces = requete.body.Pieces;
 
     if (Pieces !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('demandespeciales').updateOne({ _id: objectId }, {
                 '$set': {
@@ -204,7 +204,7 @@ app.put('/api/demandespeciales/modifier/:id', (requete, reponse) => {
 //------------------------- collection utilisateurs
 
 app.get('/api/utilisateurs', (requete, reponse) => {
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         const listeUtilisateurs = await db.collection('utilisateurs').find({}).sort().toArray();
         reponse.status(200).json(listeUtilisateurs);
     }, reponse).catch(
@@ -215,7 +215,7 @@ app.get('/api/utilisateurs', (requete, reponse) => {
 app.get('/api/utilisateurs/:id', (requete, reponse) => {
     const id = requete.params.id;
 
-    utiliserDB(async (db) => {
+    utiliserDB(async(db) => {
         var objectId = ObjectID.createFromHexString(id);
         const utilisateur = await db.collection('utilisateurs').findOne({ _id: objectId });
         reponse.status(200).json(utilisateur);
@@ -228,7 +228,7 @@ app.post('/api/utilisateurs/ajouter', (requete, reponse) => {
     const { Nom, Prenom, Email, Password } = requete.body;
 
     if (Nom !== undefined && Prenom !== undefined && Email !== undefined && Password !== undefined) {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
 
             let utilisateur = await db.collection('utilisateurs').findOne({ Email: Email });
 
@@ -263,7 +263,7 @@ app.post('/api/utilisateurs/authentifier', (requete, reponse) => {
     if (Email.length === 0 || Password.length === 0) {
         reponse.status(412).send('Certains paramètres ne sont pas définis ');
     } else {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
 
             let utilisateur = await db.collection('utilisateurs').findOne({ Email: Email, Password: Password });
 
@@ -274,8 +274,7 @@ app.post('/api/utilisateurs/authentifier', (requete, reponse) => {
             } else if (utilisateur === null) {
 
                 reponse.status(401).send("Utilisateur n'existe pas !");
-            }
-            else {
+            } else {
                 reponse.status(500).send("Erreur survenue lors de la connection  !");
             }
         }, reponse).catch(
@@ -292,7 +291,7 @@ app.post('/api/admins/authentifier', (requete, reponse) => {
         reponse.status(412).send('Certains paramètres ne sont pas définis ');
 
     } else {
-        utiliserDB(async (db) => {
+        utiliserDB(async(db) => {
 
             let admin = await db.collection('admins').findOne({ NomUtilisateur: NomUtilisateur, Password: Password });
 
@@ -303,8 +302,7 @@ app.post('/api/admins/authentifier', (requete, reponse) => {
             } else if (admin === null) {
 
                 reponse.status(401).send("l'admin n'existe pas !");
-            }
-            else {
+            } else {
                 reponse.status(500).send("Erreur survenue lors de la connection  !");
             }
         }, reponse).catch(

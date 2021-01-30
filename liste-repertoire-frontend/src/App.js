@@ -16,6 +16,7 @@ import RoutePriveeAdmin from './composants/RoutePriveeAdmin';
 import {contexteAUTH} from './Context/Auth';
 import {useState} from 'react';
 //import PageDemandeSpeciale from './pages/PageDemandeSpeciale';
+import './index.css';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';

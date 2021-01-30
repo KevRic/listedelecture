@@ -3,7 +3,8 @@ import {
     useState,
     useEffect
 } from 'react';
-
+import Alert from 'react-bootstrap/Alert';
+import Container from 'react-bootstrap/Container';
 import ListePieces from '../composants/ListePieces';
 
 function PageRepertoire() {
@@ -12,17 +13,23 @@ function PageRepertoire() {
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
-            const body = await resultat.json().catch((error) => {console.log(error)});
+            const body = await resultat.json().catch((error) => { console.log(error) });
             setListePieces(body);
         };
         chercherDonnees();
     }, []);
 
     return (
-        <>
-            <h1>Liste du répertoire</h1>
+
+        <Container fluid>
+
+            <Alert variant="dark">
+                <h1>Liste du répertoire</h1>
+            </Alert>
             <ListePieces pieces={listePieces} />
-        </>
+        </Container>
+
+
     );
 }
 
