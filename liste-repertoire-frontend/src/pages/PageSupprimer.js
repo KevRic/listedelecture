@@ -5,7 +5,7 @@ import {
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-
+import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ function PageSupprimer({ match }) {
     }
 
     return (
-    <>
+    <Container>
         {AfficherRedirection()}
         <h1>Supprimer</h1>
         <Alert variant={'danger'} >
@@ -41,7 +41,7 @@ function PageSupprimer({ match }) {
             <Button variant={'danger'} >Annuler</Button>  
         </Link>
         
-    </>
+    </Container>
     );
 }
 

@@ -56,7 +56,7 @@ function FormulaireConnectionAdmin(){
                                 setAuthentificationAdmin(true);
                                 setAuthentificationUtilisateur(false);
                                 setMasquerPageProfile('block');
-                                setNomUtilisateur(data.Nom);
+                                setNomUtilisateur('');
                                 setRediriger(true);
                             }
                         }

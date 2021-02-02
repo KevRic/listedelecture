@@ -57,12 +57,11 @@ function PageRepertoire() {
             return (
                 <>
                     <Row className="my-2">
-                        <Col md="1">
-                            <Form.Label>Recherche: </Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
-                        </Col>
+                    <Col>
+                    <Form.Label>Recherche:</Form.Label>
+                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                </Col>
+                <Col></Col>
                         <Col className="text-right">
                             <AfficherTrierPieces setTridemande={setTridemande} />
                         </Col>

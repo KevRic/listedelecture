@@ -67,7 +67,7 @@ function FormulaireAjouterDemandeSpeciale(props) {
                 {categories.map((categorie, key) => {
                     const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                     return (
-                        <Row>
+                        <Row key={categorie}>
                             <Col>
                                 <ListGroup  >
                                     <ListGroup.Item variant="dark" style={{ textAlign: "center", fontSize: "25px" }} className="mt-2">{categorie}</ListGroup.Item>

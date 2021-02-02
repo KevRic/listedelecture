@@ -22,39 +22,37 @@ function ListeDemandesSpecialesClient({ demandesSpeciales }) {
                         {
                             demandesSpeciales.map((demandeSpeciale, key1) => {
                                 return (
-                                    <>
-                                        <tr key={demandeSpeciale._id}>
-                                            <td>{key1 + 1}</td>
-                                            <td>
-                                                <Table bordered striped>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Titre</th>
-                                                            <th>Artiste</th>
-                                                        </tr>
-                                                    </thead>
+                                    <tr key={demandeSpeciale._id}>
+                                        <td>{key1 + 1}</td>
+                                        <td>
+                                            <Table bordered striped>
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Titre</th>
+                                                        <th>Artiste</th>
+                                                    </tr>
+                                                </thead>
 
-                                                    <tbody>
-                                                        {
-                                                            demandeSpeciale.Pieces.map((piece, index) =>
-                                                                <tr key={index}>
-                                                                    <td>{index + 1}</td>
-                                                                    <td>{piece.Titre}</td>
-                                                                    <td>{piece.Artiste}</td>
-                                                                </tr>
-                                                            )
-                                                        }
-                                                    </tbody>
-                                                </Table>
-                                            </td>
-                                            <td className="text-center">
-                                                <Link to={`/modifierDemandeSpecialeClient/${demandeSpeciale._id}`}>
-                                                    <Button variant="success" className="m-1" size="sm" >Modifier</Button>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    </>
+                                                <tbody>
+                                                    {
+                                                        demandeSpeciale.Pieces.map((piece, index) =>
+                                                            <tr key={index}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{piece.Titre}</td>
+                                                                <td>{piece.Artiste}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                </tbody>
+                                            </Table>
+                                        </td>
+                                        <td className="text-center">
+                                            <Link to={`/modifierDemandeSpecialeClient/${demandeSpeciale._id}`}>
+                                                <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                                            </Link>
+                                        </td>
+                                    </tr>
                                 )
                             })
                         }

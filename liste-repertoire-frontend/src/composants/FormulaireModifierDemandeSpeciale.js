@@ -23,7 +23,7 @@ function FormulaireModifierDemandeSpeciale(props) {
         }
 
         var equal = false;
-        
+
         if (piecesTemp.length === piecesDebutModification.length) {
             equal = VerifierArrayEquals(piecesDebutModification, piecesTemp);
         }
@@ -94,7 +94,7 @@ function FormulaireModifierDemandeSpeciale(props) {
                 {categories.map((categorie, key) => {
                     const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                     return (
-                        <Row>
+                        <Row key={categorie}>
                             <Col>
                                 <ListGroup  >
                                     <ListGroup.Item variant="dark" style={{ textAlign: "center", fontSize: "25px" }} className="mt-2">{categorie}</ListGroup.Item>
@@ -103,13 +103,13 @@ function FormulaireModifierDemandeSpeciale(props) {
                                             <tr>
                                                 <th>Titre</th>
                                                 <th>Artiste</th>
-                                                <th>Sélection</th>
+                                                <th className="text-center">Sélection</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                piecesAssociees.map(piece =>
-                                                    <tr key={piece._id}>
+                                                piecesAssociees.map((piece , key1) =>
+                                                    <tr key={key1}>
                                                         <td >{piece.Titre}</td>
                                                         <td>{piece.Artiste}</td>
                                                         <td className="text-center"><Form.Check type="checkbox" checked={VerifierCheck(piece)} id={piece} onChange={(e) => MAJpiecesClient(e, piece)} /></td>

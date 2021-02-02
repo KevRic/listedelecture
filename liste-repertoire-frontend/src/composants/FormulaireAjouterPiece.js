@@ -108,7 +108,7 @@ function FormulaireAjouterPiece({ id }) {
         
                     <Form.Group>
                         <Form.Label>Catégorie</Form.Label><br />
-                        <Form.Label>{categorieArray.map((catego) => <p>{catego}</p>)}</Form.Label>
+                        <Form.Label>{categorieArray.map((catego) => <p key={catego}>{catego}</p>)}</Form.Label>
                     </Form.Group>
 
                     <Button variant="primary" onClick={envoyerFormulaire} >

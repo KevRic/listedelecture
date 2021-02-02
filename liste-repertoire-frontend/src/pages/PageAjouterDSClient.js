@@ -76,7 +76,7 @@ function PageAjouterDSClient() {
 
 
     const proprieteTri = types[typeTridemande];
-    if (typeTridemande === "ArtisteDesc" || typeTridemande === "Titre") {
+    if (typeTridemande === "ArtisteDesc" || typeTridemande === "TitreDesc") {
         copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? 1 : -1);
     }
     else {
