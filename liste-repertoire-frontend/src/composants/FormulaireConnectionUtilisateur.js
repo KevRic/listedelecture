@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/Alert'
 import {UtiliseAUTH} from '../Context/Auth'
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import Container from 'react-bootstrap/Container'
 function FormulaireConnectionUtilisateur(){
 
     const [email, setEmail] = useState('');
@@ -17,7 +17,8 @@ function FormulaireConnectionUtilisateur(){
     const {setAuthentificationUtilisateur}=UtiliseAUTH();
     const {setNomUtilisateur}=UtiliseAUTH();
     const {setIdUtilisateur}=UtiliseAUTH();
-
+    const {setAuthentificationAdmin}=UtiliseAUTH();
+    const {setMasquerPageProfile}=UtiliseAUTH();
        const  SeConnecter = async () => {
             if(email.length===0|| password.length===0){
 
@@ -57,8 +58,10 @@ function FormulaireConnectionUtilisateur(){
                             if(response.status===200)
                             {
                                 setAuthentificationUtilisateur(true);
+                                setAuthentificationAdmin(false);
                                 setNomUtilisateur(data.Nom);
                                 setIdUtilisateur(data._id);
+                                setMasquerPageProfile('block');
                                 setRediriger(true);
                             }
                         }
@@ -81,7 +84,7 @@ function FormulaireConnectionUtilisateur(){
     
     return(
 
-        <>
+    <Container>
    
     {AfficherRedirection()}
     <Form className="width">
@@ -105,7 +108,7 @@ function FormulaireConnectionUtilisateur(){
             
    </Form>
    <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>
- </>
+   </Container>
     )
 }
 

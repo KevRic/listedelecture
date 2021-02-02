@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
 import {Link } from 'react-router-dom';
-
+import Container from 'react-bootstrap/Container'
 function FormulaireAjouterUtilisateur() {
   const [validated, setValidated] = useState(false);
   const [prenom, setPrenom] = useState('');
@@ -80,7 +80,7 @@ function VerifierDonnesEntresParUtilisateur(){
   };
 
   return (
-      <>
+      <Container>
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -119,7 +119,7 @@ function VerifierDonnesEntresParUtilisateur(){
     </Form>
    
     <Alert className="mt-4" variant={alertColorRegistre}>{alertRegistre}</Alert>
-    </>
+  </Container>
   );
 }
 

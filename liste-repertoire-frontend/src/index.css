@@ -21,3 +21,8 @@ th {
 h1 {
     font-family: 'Rock';
 }
+
+#btnProfile{
+    border-radius: 50%;
+    border:white 5px;
+}

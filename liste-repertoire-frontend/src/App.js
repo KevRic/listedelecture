@@ -13,6 +13,8 @@ import PageModifierDSClient from './pages/PageModifierDSClient';
 import PageAjouterDSClient from './pages/PageAjouterDSClient';
 import RoutePriveeClient from './composants/RoutePriveeClient';
 import RoutePriveeAdmin from './composants/RoutePriveeAdmin';
+import PageModifierProfile from './pages/PageModifierProfile';
+import PageProfile from './pages/PageProfile'
 import {contexteAUTH} from './Context/Auth';
 import {useState} from 'react';
 //import PageDemandeSpeciale from './pages/PageDemandeSpeciale';
@@ -31,9 +33,11 @@ function App() {
   const [authentificationAdmin,setAuthentificationAdmin]=useState(false);
   const [IdUtilisateur,setIdUtilisateur]=useState('');
   const [nomUtilisateur,setNomUtilisateur]=useState('');
+  const [MasquerPageProfile,setMasquerPageProfile]=useState('none');
   return (
     <contexteAUTH.Provider value={{authentificationUtilisateur,setAuthentificationUtilisateur,authentificationAdmin,setAuthentificationAdmin,
-    IdUtilisateur,setIdUtilisateur,nomUtilisateur,setNomUtilisateur }}>
+    IdUtilisateur,setIdUtilisateur,nomUtilisateur,setNomUtilisateur 
+    ,MasquerPageProfile,setMasquerPageProfile}}>
     <Router>
       <Container>
         <BarreNavigation />
@@ -45,11 +49,11 @@ function App() {
           <Route path="/supprimer/:id" component={PageSupprimer} />
 
           <RoutePriveeAdmin path="/admin" component={PageAdmin}/>
-          
+          <RoutePriveeClient path="/pageProfile" component={PageProfile}/>
           <RoutePriveeClient path="/espaceClient" component={PageEspaceClient}/>
           <RoutePriveeClient path="/ajouterDemandeSpecialeClient" component={PageAjouterDSClient}/>
           <RoutePriveeClient path="/modifierDemandeSpecialeClient/:id" component={PageModifierDSClient}/>
-
+          <RoutePriveeClient path="/PageModifierProfile/:id" component={PageModifierProfile}/>
           <Route path="/PageConnection" component={PageConnection} /> 
           <Route path="/PageRegistre" component={PageRegistre} /> 
           <Route component={Page404} />

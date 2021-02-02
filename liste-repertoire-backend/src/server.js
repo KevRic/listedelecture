@@ -257,6 +257,30 @@ app.post('/api/utilisateurs/ajouter', (requete, reponse) => {
     }
 });
 
+app.put('/api/utilisateurs/modifier/:id', (requete, reponse) => {
+    const { Nom, Prenom, Email, Password } = requete.body;
+    const id = requete.params.id;
+
+    if (Nom !== undefined && Prenom !== undefined && Email !== undefined && Password !== undefined) {
+        utiliserDB(async(db) => {
+            var objectId = ObjectID.createFromHexString(id);
+            await db.collection('utilisateurs').updateOne({ _id: objectId }, {
+                '$set': {
+                    Nom: Nom,
+                    Prenom: Prenom,
+                    Email: Email,
+                    Password:Password
+                }
+            });
+
+            reponse.status(200).send("Utilisateur modifiée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : l'utilisateur n'a pas été modifiée")
+        );
+    } else {
+        reponse.status(500).send('Certains paramètres ne sont pas définis :')  
+    }
+});
 app.post('/api/utilisateurs/authentifier', (requete, reponse) => {
     const { Email, Password } = requete.body;
 

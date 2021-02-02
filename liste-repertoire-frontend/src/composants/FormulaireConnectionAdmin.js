@@ -5,7 +5,7 @@ import { React,useState} from 'react'
 import Alert from 'react-bootstrap/Alert'
 import {UtiliseAUTH} from '../Context/Auth'
 import { Redirect } from 'react-router-dom';
-
+import Container from 'react-bootstrap/Container'
 
 function FormulaireConnectionAdmin(){
 
@@ -15,7 +15,9 @@ function FormulaireConnectionAdmin(){
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const [rediriger, setRediriger] = useState(false);
     const {setAuthentificationAdmin}=UtiliseAUTH();
-
+    const {setAuthentificationUtilisateur}=UtiliseAUTH();
+    const {setMasquerPageProfile}=UtiliseAUTH();
+    const {setNomUtilisateur}=UtiliseAUTH();
        const  SeConnecter = async () => {
             if(nomUtilisateur.length===0|| password.length===0){
 
@@ -52,6 +54,9 @@ function FormulaireConnectionAdmin(){
                             if(response.status===200)
                             {
                                 setAuthentificationAdmin(true);
+                                setAuthentificationUtilisateur(false);
+                                setMasquerPageProfile('block');
+                                setNomUtilisateur(data.Nom);
                                 setRediriger(true);
                             }
                         }
@@ -74,7 +79,7 @@ function FormulaireConnectionAdmin(){
     
     return(
 
-        <>
+    <Container>
    
     {AfficherRedirection()}
     <Form className="width">
@@ -97,7 +102,7 @@ function FormulaireConnectionAdmin(){
             
  </Form>
    <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>
-        </>
+   </Container>   
     )
 }
 
