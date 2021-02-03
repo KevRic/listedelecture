@@ -8,6 +8,7 @@ function PageRepertoire() {
     const [listePieces, setListePieces] = useState([]);
     const [typeTridemande, setTridemande] = useState('Artiste');
     const [motRechercher, setMotRechercher] = useState("");
+    
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -62,18 +63,20 @@ function PageRepertoire() {
         }
     }
 
+
+    
     function AffichageComposant() {
         if (listePieces?.length) {
             return (
                 <>
                     <Row className="my-2">
                         <Col>
-                            <Form.Label>Recherche:</Form.Label>
-                            <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                            <Form.Label >Recherche:</Form.Label>
+                            <Form.Control autoFocus type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
                         </Col>
                         <Col></Col>
                         <Col className="text-right">
-                            <AfficherTrierPieces setTridemande={setTridemande} />
+                            <AfficherTrierPieces typeTridemande={typeTridemande} setTridemande={setTridemande} />
                         </Col>
                     </Row>
                     <br />
