@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import AfficherDemandesSpecialesAdmin from '../composants/AfficherListeDemandesSpecialesAdmin';
-
+import { React, useState, useEffect } from 'react';
+import { Alert } from 'react-bootstrap';
+import AfficherListeDemandesSpecialesAdmin from './Affichage/AfficherListeDemandesSpecialesAdmin';
 
 function ListeDemandesSpecialesAdmin() {
 
@@ -17,16 +16,10 @@ function ListeDemandesSpecialesAdmin() {
         chercherDonnees();
     }, [compteur]);
 
-
     if (demandesSpeciales?.length) {
-
         return (
-            <>
-            <AfficherDemandesSpecialesAdmin setCompteur={setCompteur} compteur={compteur} demandesSpeciales={demandesSpeciales} setListeDemandes={setListeDemandes}  />           
-            </>
+            <AfficherListeDemandesSpecialesAdmin setCompteur={setCompteur} compteur={compteur} demandesSpeciales={demandesSpeciales} setListeDemandes={setListeDemandes} />
         );
-
-
     }
     else {
         return <Alert variant={"info"} >Il n'y a pas de demandes spéciales.</Alert>;

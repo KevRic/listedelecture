@@ -1,13 +1,7 @@
-import {
-    React,
-    useState,
-    useEffect
-} from 'react';
-import Alert from 'react-bootstrap/Alert'
-import AfficherListePiecesAdmin from '../composants/AfficherListePiecesAdmin'
-import Button from 'react-bootstrap/Button';
+import { React, useState, useEffect } from 'react';
+import { Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import AfficherListePiecesAdmin from '../composants/Affichage/AfficherListePiecesAdmin';
 
 function ListePiecesAdmin() {
 
@@ -23,19 +17,19 @@ function ListePiecesAdmin() {
     }, []);
 
     if (listePieces?.length) {
-
-        return (<>
+        return (
             <AfficherListePiecesAdmin listePieces={listePieces} />
-        </>)
+        )
     }
     else {
-        return (<>
-            <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>
-            <Link to="/ajouter">
-                <Button className="mt-2">Ajouter une nouvelle pièce</Button>
-            </Link>
-        </>);
-
+        return (
+            <>
+                <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>
+                <Link to="/ajouter">
+                    <Button className="mt-2">Ajouter une nouvelle pièce</Button>
+                </Link>
+            </>
+        );
     }
 }
 

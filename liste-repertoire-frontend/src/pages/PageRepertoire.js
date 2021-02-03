@@ -1,11 +1,8 @@
 import { React, useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import ListePieces from '../composants/ListePieces';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { Form } from 'react-bootstrap';
-import Alert from 'react-bootstrap/Alert';
-import AfficherTrierPieces from '../composants/AfficherTrierPieces';
+import { Form, Container, Col, Row, Alert } from 'react-bootstrap';
+import AfficherTrierPieces from '../composants/Affichage/AfficherTrierPieces';
+import AfficherListePiecesRepertoireTrieParCategorie from '../composants/Affichage/AfficherListePiecesRepertoireTrieParCategorie';
+import AfficherListePiecesRepertoireTrieParTitreOuArtiste from '../composants/Affichage/AfficheListePiecesRepertoireTrieParTitreOuArtiste';
 
 function PageRepertoire() {
     const [listePieces, setListePieces] = useState([]);
@@ -43,13 +40,26 @@ function PageRepertoire() {
         CategorieDesc: 'Titre',
     };
 
-
     const proprieteTri = types[typeTridemande];
-    if (typeTridemande === "ArtisteDesc" || typeTridemande === "Titre") {
+    if (typeTridemande === "ArtisteDesc" || typeTridemande === "TitreDesc") {
         copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? 1 : -1);
     }
     else {
         copyListePieces.sort((a, b) => b[proprieteTri] > a[proprieteTri] ? -1 : 1);
+    }
+
+    function MiseAJourAffichage() {
+
+        if (typeTridemande === "Categorie" || typeTridemande === "CategorieDesc") {
+            return (
+                <AfficherListePiecesRepertoireTrieParCategorie listePieces={copyListePieces} typeTridemande={typeTridemande} />
+            );
+        }
+        else {
+            return (
+                <AfficherListePiecesRepertoireTrieParTitreOuArtiste listePieces={copyListePieces} />
+            );
+        }
     }
 
     function AffichageComposant() {
@@ -57,18 +67,18 @@ function PageRepertoire() {
             return (
                 <>
                     <Row className="my-2">
-                    <Col>
-                    <Form.Label>Recherche:</Form.Label>
-                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
-                </Col>
-                <Col></Col>
+                        <Col>
+                            <Form.Label>Recherche:</Form.Label>
+                            <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                        </Col>
+                        <Col></Col>
                         <Col className="text-right">
                             <AfficherTrierPieces setTridemande={setTridemande} />
                         </Col>
                     </Row>
                     <br />
                     <h2 style={{ fontFamily: 'Rock' }}>Voici la liste des pièces</h2>
-                    <ListePieces listePieces={copyListePieces} typeTridemande={typeTridemande} />
+                    {MiseAJourAffichage()}
                 </>
             )
         }
@@ -79,13 +89,9 @@ function PageRepertoire() {
 
     return (
         <Container fluid>
-            <Row>
-                <Col md="auto">
-                    <Alert variant="dark">
-                        <h1>Liste du répertoire</h1>
-                    </Alert>
-                </Col>
-            </Row>
+            <Alert variant="dark">
+                <h1>Liste du répertoire</h1>
+            </Alert>
             <AffichageComposant />
         </Container>
     );
