@@ -29,7 +29,7 @@ function PageProfile() {
             </div>
 
             <Alert variant={"success"}>
-                Nom :   <h2> {nom}</h2>
+                   Nom :   <h2> {nom}</h2>
                    Prénom :  <h2>{prenom}</h2>
                    Email :  <h2> {email}</h2>
             </Alert>

@@ -23,6 +23,7 @@ import RoutePriveeClient from './composants/RoutePrivee/RoutePriveeClient';
 import RoutePriveeAdmin from './composants/RoutePrivee/RoutePriveeAdmin';
 import PageModifierUtilisateur from './pages/Utilisateur/PageModifierUtilisateur';
 import PageProfile from './pages/Utilisateur/PageProfile';
+import Langages from './composants/Langages';
 
 function App() {
   const [authentificationUtilisateur, setAuthentificationUtilisateur] = useState(false);
@@ -36,6 +37,7 @@ function App() {
     }}>
       <Router>
         <Container>
+          <Langages/>
           <BarreNavigation />
           <Switch>
             <Route path="/" component={PageAccueil} exact />
