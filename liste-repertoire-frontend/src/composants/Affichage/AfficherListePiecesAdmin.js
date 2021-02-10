@@ -63,7 +63,7 @@ function AfficherListePiecesAdmin(props) {
                 </Col>
                 <Col></Col>
                 <Col style={{ textAlign: 'right' }}>
-                    <AfficherTrierPieces setTridemande={setTridemande} />
+                    <AfficherTrierPieces typeTridemande={typeTridemande} setTridemande={setTridemande} />
                     <Link to="/ajouter">
                         <Button className="mt-2">Ajouter une nouvelle pièce</Button>
                     </Link>
@@ -76,3 +76,6 @@ function AfficherListePiecesAdmin(props) {
 }
 
 export default AfficherListePiecesAdmin;
+
+
+
