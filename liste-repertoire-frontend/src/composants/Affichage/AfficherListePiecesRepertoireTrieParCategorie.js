@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Col, Table, ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListePiecesRepertoireTrieParCategorie(props) {
 
+    const { t } = useTranslation();
     var dictionnaireCategories = Object();
 
     props.listePieces.forEach(piece => {
@@ -34,8 +36,8 @@ function AfficherListePiecesRepertoireTrieParCategorie(props) {
                                 <Table>
                                     <thead>
                                         <tr >
-                                            <th>Titre</th>
-                                            <th>Artiste</th>
+                                            <th>{t('titre')}</th>
+                                            <th>{t('artiste')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

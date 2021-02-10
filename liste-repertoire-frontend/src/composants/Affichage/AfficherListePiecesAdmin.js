@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AfficherTrierPieces from './AfficherTrierPieces';
 import AfficherListePiecesTrieParCategorie from './AfficherListePiecesTrieParCategorie';
 import AfficherListePiecesTrieParTitreOuArtiste from './AfficherListePiecesTrieParTitreOuArtiste';
+import { useTranslation } from 'react-i18next';
 
 
 function AfficherListePiecesAdmin(props) {
@@ -11,6 +12,7 @@ function AfficherListePiecesAdmin(props) {
     const [typeTridemande, setTridemande] = useState('Date');
     var copyListePieces = props.listePieces.slice();
     const [motRechercher, setMotRechercher] = useState("");
+    const { t } = useTranslation();
 
     const handleChange = event => {
         setMotRechercher(event.target.value);
@@ -58,14 +60,14 @@ function AfficherListePiecesAdmin(props) {
         <>
             <Row className="my-2 ">
                 <Col>
-                    <Form.Label>Recherche:</Form.Label>
+                    <Form.Label>{t('rechercher')}:</Form.Label>
                     <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
                 </Col>
                 <Col></Col>
                 <Col style={{ textAlign: 'right' }}>
                     <AfficherTrierPieces typeTridemande={typeTridemande} setTridemande={setTridemande} />
                     <Link to="/ajouter">
-                        <Button className="mt-2">Ajouter une nouvelle pièce</Button>
+                        <Button className="mt-2 ml-5">{t('ajouternouvellepiece')}</Button>
                     </Link>
                 </Col>
             </Row>

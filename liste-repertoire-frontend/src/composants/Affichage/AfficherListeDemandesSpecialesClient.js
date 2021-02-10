@@ -1,8 +1,11 @@
 import React from 'react';
 import { Alert, Button, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
+
+    const { t } = useTranslation();
 
     if (demandesSpeciales?.length) {
         return (
@@ -11,8 +14,8 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                     <thead>
                         <tr>
                             <th >#</th>
-                            <th >Demande Spéciale (Titre - Artiste)</th>
-                            <th className="text-center">Modification</th>
+                            <th >{t('demandespecialetitreartiste')}</th>
+                            <th className="text-center">{t('manipulation')}</th>
                         </tr>
                     </thead>
 
@@ -27,8 +30,8 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Titre</th>
-                                                        <th>Artiste</th>
+                                                        <th>{t('titre')}</th>
+                                                        <th>{t('artiste')}</th>
                                                     </tr>
                                                 </thead>
 
@@ -47,7 +50,7 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                                         </td>
                                         <td className="text-center">
                                             <Link to={`/modifierDemandeSpecialeClient/${demandeSpeciale._id}`}>
-                                                <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                                                <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
                                             </Link>
                                         </td>
                                     </tr>

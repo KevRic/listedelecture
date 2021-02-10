@@ -1,16 +1,20 @@
 import React from 'react';
 import { Row, Col, Table } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListePiecesTrieParTitreOuArtiste({ listePieces }) {
+
+    const { t } = useTranslation();
+
     return (
         <Row>
             <Col>
                 <Table bordered striped>
                     <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Artiste</th>
-                            <th>Categorie</th>
+                            <th>{t('titre')}</th>
+                            <th>{t('artiste')}</th>
+                            <th>{t('categories')}</th>
                         </tr>
                     </thead>
                     <tbody>

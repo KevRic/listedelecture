@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, Row, Col, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListePiecesTrieParTitreOuArtiste({ listePieces }) {
+
+    const { t } = useTranslation();
 
     return (
         <Row>
@@ -10,10 +13,10 @@ function AfficherListePiecesTrieParTitreOuArtiste({ listePieces }) {
                 <Table bordered striped>
                     <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Artiste</th>
-                            <th>Categorie</th>
-                            <th>Manipulation</th>
+                            <th>{t('titre')}</th>
+                            <th>{t('artiste')}</th>
+                            <th>{t('categories')}</th>
+                            <th>{t('manipulation')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,10 +35,10 @@ function AfficherListePiecesTrieParTitreOuArtiste({ listePieces }) {
                                         </td>
                                         <td>
                                             <Link to={`/modifier/${piece._id}`}>
-                                                <Button variant="success" className="mr-2" size="sm" >Modifier</Button>
+                                                <Button variant="success" className="mr-2" size="sm" >{t('modifier')}</Button>
                                             </Link>
                                             <Link to={`/supprimer/${piece._id}`}>
-                                                <Button variant="danger" className="mr-2" size="sm" >Supprimer</Button>
+                                                <Button variant="danger" className="mr-2" size="sm" >{t('supprimer')}</Button>
                                             </Link>
                                         </td>
                                     </tr>

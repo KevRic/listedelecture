@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Alert, Row, Col, Table, Button } from 'react-bootstrap';
 import AfficherTrierDemandeSpeciale from './AfficherTrierDemandeSpeciale';
+import { useTranslation } from 'react-i18next';
 
 function AfficherDemandesSpecialesAdmin(props) {
 
     var demandesSpeciales = props.demandesSpeciales;
     const [typeTridemande, setTridemande] = useState('DateDesc');
+    const { t } = useTranslation();
 
     const types = {
         Date: 'Date',
@@ -50,10 +52,10 @@ function AfficherDemandesSpecialesAdmin(props) {
         var etatTexte = etat;
 
         if (etatTexte !== "true") {
-            etatTexte = "Activer";
+            etatTexte = t('activer');
         }
         else {
-            etatTexte = "Désactiver"
+            etatTexte = t('desactiver');
         }
 
         return etatTexte;
@@ -87,11 +89,11 @@ function AfficherDemandesSpecialesAdmin(props) {
                         <Table bordered striped>
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
+                                    <th>{t('nom')}</th>
                                     <th>Date</th>
-                                    <th>Etat</th>
-                                    <th>Demande spéciale (Titre - Artiste)</th>
-                                    <th>Manipulation</th>
+                                    <th>{t('etat')}</th>
+                                    <th >{t('demandespecialetitreartiste')}</th>
+                                    <th>{t('manipulation')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,8 +108,8 @@ function AfficherDemandesSpecialesAdmin(props) {
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Titre</th>
-                                                            <th>Artiste</th>
+                                                            <th>{t('titre')}</th>
+                                                            <th>{t('artiste')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

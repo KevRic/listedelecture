@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, Row, Col, Table, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListePiecesTrieParCategorie(props) {
+
+    const { t } = useTranslation();
 
     var dictionnaireCategories = Object();
 
@@ -35,9 +38,9 @@ function AfficherListePiecesTrieParCategorie(props) {
                                 <Table>
                                     <thead>
                                         <tr >
-                                            <th>Titre</th>
-                                            <th>Artiste</th>
-                                            <th>Manipulation</th>
+                                            <th>{t('titre')}</th>
+                                            <th>{t('artiste')}</th>
+                                            <th>{t('manipulation')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,10 +50,10 @@ function AfficherListePiecesTrieParCategorie(props) {
                                                     <td >{piece.Titre}</td>
                                                     <td>{piece.Artiste}</td>
                                                     <td><Link to={`/modifier/${piece._id}`}>
-                                                        <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                                                        <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
                                                     </Link>
                                                         <Link to={`/supprimer/${piece._id}`}>
-                                                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                                                            <Button variant="danger" className="m-1" size="sm" >{t('supprimer')}</Button>
                                                         </Link></td>
                                                 </tr>
                                             )

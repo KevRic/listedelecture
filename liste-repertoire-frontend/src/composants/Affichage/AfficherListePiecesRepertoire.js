@@ -1,7 +1,10 @@
 import React from 'react';
 import { Form, Table, Row, Col, ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function AfficherListePiecesRepertoire(props) {
+
+    const { t } = useTranslation();
     var listePieces = props.listePieces;
 
     if (props.typeTridemande === "Categorie" || props.typeTridemande === "CategorieDesc") {
@@ -37,8 +40,8 @@ function AfficherListePiecesRepertoire(props) {
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th>Titre</th>
-                                                <th>Artiste</th>
+                                                <th>{t('titre')}</th>
+                                                <th>{t('artiste')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -68,9 +71,9 @@ function AfficherListePiecesRepertoire(props) {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Titre</th>
-                                <th>Artiste</th>
-                                <th>Catégorie</th>
+                                <th>{t('titre')}</th>
+                                <th>{t('artiste')}</th>
+                                <th>{t('categories')}</th>
                             </tr>
                         </thead>
 
