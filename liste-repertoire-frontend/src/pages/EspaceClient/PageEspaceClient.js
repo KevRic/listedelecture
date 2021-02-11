@@ -3,9 +3,10 @@ import { Col, Row, Container, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { UtiliseAUTH } from '../../Context/Auth';
 import AfficherListeDemandesSpecialesClient from '../../composants/Affichage/AfficherListeDemandesSpecialesClient';
+import { useTranslation } from 'react-i18next';
 
 function PageEspaceClient() {
-
+   const { t } = useTranslation();
    const { IdUtilisateur, nomUtilisateur } = UtiliseAUTH();
    const [listeDemandesSpecialesClient, setListeDemandes] = useState([]);
 
@@ -23,17 +24,17 @@ function PageEspaceClient() {
          <Row>
             <Col>
                <Alert variant="dark">
-                  <h1 style={{ fontFamily: 'Rock' }}>Bienvenue {nomUtilisateur}</h1>
+                  <h1 style={{ fontFamily: 'Rock' }}>{t('pageespaceclient.bienvenue')} {nomUtilisateur}</h1>
                </Alert>
             </Col>
          </Row>
          <Row>
             <Col>
-               <h5 style={{ fontFamily: 'Rock' }}>Liste de vos Demandes Spéciales :</h5>
+               <h5 style={{ fontFamily: 'Rock' }}>{t('pageespaceclient.historiquedemandesspeciales')} :</h5>
             </Col>
             <Col className="text-right">
                <Link to="/ajouterDemandeSpecialeClient">
-                  <Button variant="primary" className="mb-2">Ajouter une nouvelle demande spéciale</Button>
+                  <Button variant="primary" className="mb-2">{t('bouton.ajouterdemandespeciale')}</Button>
                </Link>
             </Col>
          </Row>

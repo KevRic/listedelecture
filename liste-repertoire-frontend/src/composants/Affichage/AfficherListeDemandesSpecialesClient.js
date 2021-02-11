@@ -14,8 +14,8 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                     <thead>
                         <tr>
                             <th >#</th>
-                            <th >{t('demandespecialetitreartiste')}</th>
-                            <th className="text-center">{t('manipulation')}</th>
+                            <th >{t('pageespaceclient.titredemandespeciale')}</th>
+                            <th className="text-center">{t('pageespaceclient.titremodification')}</th>
                         </tr>
                     </thead>
 
@@ -30,8 +30,8 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>{t('titre')}</th>
-                                                        <th>{t('artiste')}</th>
+                                                        <th>{t('piece.titre')}</th>
+                                                        <th>{t('piece.artiste')}</th>
                                                     </tr>
                                                 </thead>
 
@@ -50,7 +50,7 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
                                         </td>
                                         <td className="text-center">
                                             <Link to={`/modifierDemandeSpecialeClient/${demandeSpeciale._id}`}>
-                                                <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
+                                                <Button variant="success" className="m-1" size="sm" >{t('bouton.modifier')}</Button>
                                             </Link>
                                         </td>
                                     </tr>
@@ -63,7 +63,7 @@ function AfficherListeDemandesSpecialesClient({ demandesSpeciales }) {
         );
     }
     else {
-        return <Alert variant={"info"} >Vous n'avez pas de demandes spéciales.</Alert>;
+        return <Alert variant={"info"} >{t('pageespaceclient.pasdedemandesspeciales')}</Alert>;
     }
 }
 

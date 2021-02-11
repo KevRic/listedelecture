@@ -1,8 +1,10 @@
 import { React, useState } from 'react';
 import { Form, Alert, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireAjouterPiece({ id }) {
+    const { t } = useTranslation();
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
     const [categorie, setCategorie] = useState('');
@@ -65,48 +67,48 @@ function FormulaireAjouterPiece({ id }) {
             <Alert variant={alertColor}>{alertCategorie}</Alert>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Titre</Form.Label>
+                    <Form.Label>{t('piece.titre')}:</Form.Label>
                     <Form.Control type="text" value={titre}
                         onChange={(event) => setTitre(event.target.value)} />
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Artiste / Groupe</Form.Label>
+                    <Form.Label>{t('piece.artiste')}:</Form.Label>
                     <Form.Control type="text" value={artiste}
                         onChange={(event) => setArtiste(event.target.value)} />
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Catégorie</Form.Label>
+                    <Form.Label>{t('piece.categories')}:</Form.Label>
                     <Form.Control type="text" value={categorie}
                         onChange={(event) => setCategorie(event.target.value)} />
                 </Form.Group>
 
                 <Button variant="primary mr-2" onClick={() => AjouterCategorie()} >
-                    Ajouter
+                {t('bouton.ajouter')}
             </Button>
                 <Button variant="warning" onClick={() => setCategorieArray([])} >
-                    Reset Catégorie
+                {t('bouton.resetcategories')}
             </Button>
             </Form>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Titre:</Form.Label><br />
+                    <Form.Label>{t('piece.titre')}:</Form.Label><br />
                     <Form.Label>{titre}</Form.Label>
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Artiste / Groupe</Form.Label><br />
+                    <Form.Label>{t('piece.artiste')}:</Form.Label><br />
                     <Form.Label>{artiste}</Form.Label>
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Catégorie</Form.Label><br />
+                    <Form.Label>{t('piece.categories')}:</Form.Label><br />
                     <Form.Label>{categorieArray.map((catego) => <p key={catego}>{catego}</p>)}</Form.Label>
                 </Form.Group>
 
                 <Button variant="primary" onClick={envoyerFormulaire} >
-                    Soumettre
+                {t('bouton.ajouternouvellepiece')}
             </Button>
 
             </Form>

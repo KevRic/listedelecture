@@ -38,9 +38,9 @@ function AfficherListePiecesTrieParCategorie(props) {
                                 <Table>
                                     <thead>
                                         <tr >
-                                            <th>{t('titre')}</th>
-                                            <th>{t('artiste')}</th>
-                                            <th>{t('manipulation')}</th>
+                                            <th>{t('piece.titre')}</th>
+                                            <th>{t('piece.artiste')}</th>
+                                            <th>{t('pageadministrateur.titremanipulation')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,10 +50,10 @@ function AfficherListePiecesTrieParCategorie(props) {
                                                     <td >{piece.Titre}</td>
                                                     <td>{piece.Artiste}</td>
                                                     <td><Link to={`/modifier/${piece._id}`}>
-                                                        <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
+                                                        <Button variant="success" className="m-1" size="sm" >{t('bouton.modifier')}</Button>
                                                     </Link>
                                                         <Link to={`/supprimer/${piece._id}`}>
-                                                            <Button variant="danger" className="m-1" size="sm" >{t('supprimer')}</Button>
+                                                            <Button variant="danger" className="m-1" size="sm" >{t('bouton.supprimer')}</Button>
                                                         </Link></td>
                                                 </tr>
                                             )

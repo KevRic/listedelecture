@@ -61,13 +61,13 @@ function AfficherListePiecesAdmin(props) {
             <Row className="my-2 ">
                 <Col>
                     <Form.Label>{t('rechercher')}:</Form.Label>
-                    <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                    <Form.Control type="text" placeholder={t('rechercher')} value={motRechercher} onChange={handleChange} />
                 </Col>
                 <Col></Col>
                 <Col style={{ textAlign: 'right' }}>
                     <AfficherTrierPieces typeTridemande={typeTridemande} setTridemande={setTridemande} />
                     <Link to="/ajouter">
-                        <Button className="mt-2 ml-5">{t('ajouternouvellepiece')}</Button>
+                        <Button className="mt-2 ml-5">{t('bouton.ajouternouvellepiece')}</Button>
                     </Link>
                 </Col>
             </Row>

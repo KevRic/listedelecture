@@ -1,7 +1,8 @@
 import { React } from 'react';
 import { Form, Table, Row, Col, ListGroup } from 'react-bootstrap';
-
+import { useTranslation } from 'react-i18next';
 function FormulaireAjouterDemandeSpeciale(props) {
+    const { t } = useTranslation();
     var listePieces = props.listePieces;
 
     function MAJpiecesClient(e, value) {
@@ -59,6 +60,7 @@ function FormulaireAjouterDemandeSpeciale(props) {
 
         return (
             <>
+                <h5>{t('pageajouterDS.titre2')}</h5>
                 {categories.map((categorie) => {
                     const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                     return (
@@ -69,14 +71,14 @@ function FormulaireAjouterDemandeSpeciale(props) {
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th>Titre</th>
-                                                <th>Artiste</th>
-                                                <th>Sélection</th>
+                                                <th>{t('piece.titre')}</th>
+                                                <th>{t('piece.artiste')}</th>
+                                                <th>{t('pageajouterDS.titreselection')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                piecesAssociees.map((piece,key) =>
+                                                piecesAssociees.map((piece, key) =>
                                                     <tr key={piece.Titre}>
                                                         <td>{piece.Titre}</td>
                                                         <td>{piece.Artiste}</td>
@@ -97,16 +99,16 @@ function FormulaireAjouterDemandeSpeciale(props) {
 
         return (
             <>
-                <h5>Sélectionner les pièces à ajouter à votre nouvelle demande spéciale</h5>
+                <h5>{t('pageajouterDS.titre2')}</h5>
                 <Form className="mb-1">
                     <Table bordered striped>
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Titre</th>
-                                <th>Artiste</th>
-                                <th>Catégorie</th>
-                                <th className="text-center">Sélection</th>
+                                <th>{t('piece.titre')}</th>
+                                <th>{t('piece.artiste')}</th>
+                                <th>{t('piece.categories')}</th>
+                                <th className="text-center">{t('pageajouterDS.titreselection')}</th>
                             </tr>
                         </thead>
 

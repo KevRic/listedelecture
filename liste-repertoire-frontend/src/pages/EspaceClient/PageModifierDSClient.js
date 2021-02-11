@@ -3,9 +3,10 @@ import { Form, Button, Container, Col, Row, Alert } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import AfficherTrierPieces from '../../composants/Affichage/AfficherTrierPieces';
 import FormulaireModifierDemandeSpeciale from '../../composants/Formulaires/DemandeSpeciale/FormulaireModifierDemandeSpeciale';
+import { useTranslation } from 'react-i18next';
 
 function PageModifierDSClient({ match }) {
-
+    const { t } = useTranslation();
     const id = match.params.id;
     const [pieces, setPieces] = useState([]);
     const [rediriger, setRediriger] = useState(false);
@@ -93,27 +94,27 @@ function PageModifierDSClient({ match }) {
                 <Row>
                     <Col md="auto">
                         <Alert variant="dark">
-                            <h2 style={{ fontFamily: 'Rock' }}>Modifier votre demande spéciale</h2>
+                            <h2 style={{ fontFamily: 'Rock' }}>{t('pagemodifierDS.titre')}</h2>
                         </Alert>
                     </Col>
                     <Col md="auto">
                         <Button variant="primary" disabled={etatButtonSoumettre} onClick={envoyerFormulaire} >
-                            Modifier la demande spéciale
+                        {t('bouton.modifierdemandespeciale')}
                         </Button>
                     </Col>
                     <Col className="text-right">
                         <Link to="/espaceClient">
-                            <Button variant={'danger'}>Annuler</Button>
+                            <Button variant={'danger'}>{t('bouton.annuler')}</Button>
                         </Link>
                     </Col>
                 </Row>
                 <br />
                 <Row className="my-2">
                     <Col md="1">
-                        <Form.Label>Recherche: </Form.Label>
+                        <Form.Label>{t('rechercher')}:</Form.Label>
                     </Col>
                     <Col className="text-left">
-                        <Form.Control type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                        <Form.Control type="text" placeholder={t('rechercher')} value={motRechercher} onChange={handleChange} />
                     </Col>
                     <Col className="text-right">
                         <AfficherTrierPieces setTridemande={setTridemande} />

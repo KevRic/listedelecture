@@ -1,7 +1,9 @@
 import { React } from 'react';
 import { Form, Table, Row, Col, ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireModifierDemandeSpeciale(props) {
+    const { t } = useTranslation();
     var listePieces = props.listePieces;
     var piecesDebutModification = props.piecesDebutModification;
 
@@ -85,7 +87,7 @@ function FormulaireModifierDemandeSpeciale(props) {
 
         return (
             <>
-
+                <h5>{t('pagemodifierDS.titre2')}</h5>
                 {categories.map((categorie, key) => {
                     const piecesAssociees = props.listePieces.filter((piece) => piece.Categorie.includes(categorie));
                     return (
@@ -96,9 +98,9 @@ function FormulaireModifierDemandeSpeciale(props) {
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th>Titre</th>
-                                                <th>Artiste</th>
-                                                <th className="text-center">Sélection</th>
+                                                <th>{t('piece.titre')}</th>
+                                                <th>{t('piece.artiste')}</th>
+                                                <th className="text-center">{t('pageajouterDS.titreselection')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -124,16 +126,16 @@ function FormulaireModifierDemandeSpeciale(props) {
 
         return (
             <>
-                <h5>Sélectionner les pièces voulues pour modifier votre demande spéciale</h5>
+                <h5>{t('pagemodifierDS.titre2')}</h5>
                 <Form className="mb-1">
                     <Table bordered striped>
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Titre</th>
-                                <th>Artiste</th>
-                                <th>Catégorie</th>
-                                <th className="text-center">Sélection</th>
+                                <th>{t('piece.titre')}</th>
+                                <th>{t('piece.artiste')}</th>
+                                <th>{t('piece.categories')}</th>
+                                <th className="text-center">{t('pageajouterDS.titreselection')}</th>
                             </tr>
                         </thead>
 

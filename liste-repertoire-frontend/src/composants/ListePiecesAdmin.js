@@ -2,9 +2,10 @@ import { React, useState, useEffect } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AfficherListePiecesAdmin from '../composants/Affichage/AfficherListePiecesAdmin';
+import { useTranslation } from 'react-i18next';
 
 function ListePiecesAdmin() {
-
+    const { t } = useTranslation();
     const [listePieces, setListePieces] = useState([]);
 
     useEffect(() => {
@@ -24,9 +25,9 @@ function ListePiecesAdmin() {
     else {
         return (
             <>
-                <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>
+                <Alert variant={"info"} >{t('pageadministrateur.pasdepiecesrepertoire')}</Alert>
                 <Link to="/ajouter">
-                    <Button className="mt-2">Ajouter une nouvelle pièce</Button>
+                    <Button className="mt-2">{t('bouton.ajouternouvellepiece')}</Button>
                 </Link>
             </>
         );

@@ -3,8 +3,10 @@ import { Form, Container, Col, Row, Alert } from 'react-bootstrap';
 import AfficherTrierPieces from '../composants/Affichage/AfficherTrierPieces';
 import AfficherListePiecesRepertoireTrieParCategorie from '../composants/Affichage/AfficherListePiecesRepertoireTrieParCategorie';
 import AfficherListePiecesRepertoireTrieParTitreOuArtiste from '../composants/Affichage/AfficheListePiecesRepertoireTrieParTitreOuArtiste';
+import { useTranslation } from 'react-i18next';
 
 function PageRepertoire() {
+    const { t } = useTranslation();
     const [listePieces, setListePieces] = useState([]);
     const [typeTridemande, setTridemande] = useState('Artiste');
     const [motRechercher, setMotRechercher] = useState("");
@@ -71,8 +73,8 @@ function PageRepertoire() {
                 <>
                     <Row className="my-2">
                         <Col>
-                            <Form.Label >Recherche:</Form.Label>
-                            <Form.Control autoFocus type="text" placeholder="Search" value={motRechercher} onChange={handleChange} />
+                            <Form.Label >{t('rechercher')}:</Form.Label>
+                            <Form.Control autoFocus type="text" placeholder={t('rechercher')} value={motRechercher} onChange={handleChange} />
                         </Col>
                         <Col></Col>
                         <Col className="text-right">
@@ -80,20 +82,20 @@ function PageRepertoire() {
                         </Col>
                     </Row>
                     <br />
-                    <h2 style={{ fontFamily: 'Rock' }}>Voici la liste des pièces</h2>
+                    <h2 style={{ fontFamily: 'Rock' }}>{t('pagerepertoire.titre2')}</h2>
                     {MiseAJourAffichage()}
                 </>
             )
         }
         else {
-            return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+            return <Alert variant={"info"} >{t('pagerepertoire.pasdepiecesrepertoire')}</Alert>;
         }
     }
 
     return (
         <Container fluid>
             <Alert variant="dark">
-                <h1>Liste du répertoire</h1>
+                <h1>{t('pagerepertoire.titre')}</h1>
             </Alert>
             <AffichageComposant />
         </Container>

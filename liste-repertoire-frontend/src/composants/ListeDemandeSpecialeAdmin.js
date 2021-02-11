@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
 import AfficherListeDemandesSpecialesAdmin from './Affichage/AfficherListeDemandesSpecialesAdmin';
+import { useTranslation } from 'react-i18next';
 
 function ListeDemandesSpecialesAdmin() {
-
+    const { t } = useTranslation();
     const [demandesSpeciales, setListeDemandes] = useState([]);
     const [compteur, setCompteur] = useState(0); // mis un compteur car je ne veux pas que la liste se rafraichie losqu'ont tri les demandes ligne 33
 
@@ -22,7 +23,7 @@ function ListeDemandesSpecialesAdmin() {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de demandes spéciales.</Alert>;
+        return <Alert variant={"info"} >{t('pageadministrateur.pasdedemandesDS')}</Alert>;
     }
 }
 

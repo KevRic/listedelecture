@@ -40,8 +40,8 @@ function AfficherListePiecesRepertoire(props) {
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th>{t('titre')}</th>
-                                                <th>{t('artiste')}</th>
+                                                <th>{t('piece.titre')}</th>
+                                                <th>{t('piece.artiste')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

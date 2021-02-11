@@ -1,11 +1,14 @@
 import React from 'react';
 import { Alert, Container, Carousel } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function PageAccueil() {
+    const { t } = useTranslation();
+
     return (
         <Container fluid>
             <Alert variant="dark">
-                <h1>Page accueil</h1>
+                <h1>{t('pageaccueil.titre')}</h1>
             </Alert>
 
             <Carousel>
@@ -13,7 +16,7 @@ function PageAccueil() {
                     <img className="d-block w-100" src="./rock.jpg" alt="First slide" />
                     <Carousel.Caption>
                         <h3>Metallica</h3>
-                        <p>Concert du 20 juin 2018 , QC</p>
+                        <p>{t('pageaccueil.descConcert1')}</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -21,7 +24,7 @@ function PageAccueil() {
 
                     <Carousel.Caption>
                         <h3>System Of A Down</h3>
-                        <p>Concert du 26 janvier 2018 , ON</p>
+                        <p>{t('pageaccueil.descConcert1')}</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -29,7 +32,7 @@ function PageAccueil() {
 
                     <Carousel.Caption>
                         <h3>Twenty One Pilots</h3>
-                        <p>Concert du 25 mai 2014 , BC</p>
+                        <p>{t('pageaccueil.descConcert1')}</p>
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>

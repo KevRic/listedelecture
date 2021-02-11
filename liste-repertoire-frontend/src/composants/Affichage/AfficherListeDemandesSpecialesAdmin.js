@@ -52,10 +52,10 @@ function AfficherDemandesSpecialesAdmin(props) {
         var etatTexte = etat;
 
         if (etatTexte !== "true") {
-            etatTexte = t('activer');
+            etatTexte = t('bouton.activer');
         }
         else {
-            etatTexte = t('desactiver');
+            etatTexte = t('bouton.desactiver');
         }
 
         return etatTexte;
@@ -89,11 +89,11 @@ function AfficherDemandesSpecialesAdmin(props) {
                         <Table bordered striped>
                             <thead>
                                 <tr>
-                                    <th>{t('nom')}</th>
-                                    <th>Date</th>
-                                    <th>{t('etat')}</th>
-                                    <th >{t('demandespecialetitreartiste')}</th>
-                                    <th>{t('manipulation')}</th>
+                                    <th>{t('pageadministrateur.nom')}</th>
+                                    <th>{t('pageadministrateur.date')}</th>
+                                    <th>{t('pageadministrateur.etat')}</th>
+                                    <th>{t('pageadministrateur.titredemandespeciale')}</th>
+                                    <th>{t('pageadministrateur.titremanipulation')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,8 +108,8 @@ function AfficherDemandesSpecialesAdmin(props) {
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>{t('titre')}</th>
-                                                            <th>{t('artiste')}</th>
+                                                            <th>{t('piece.titre')}</th>
+                                                            <th>{t('piece.artiste')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -137,7 +137,7 @@ function AfficherDemandesSpecialesAdmin(props) {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de demandes spéciales.</Alert>;
+        return <Alert variant={"info"} >{t('pageadministrateur.pasdedemandesDS')}</Alert>;
     }
 }
 
