@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient, ObjectID } from 'mongodb';
+import path from 'path';
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '/build')));
 app.use(bodyParser.json());
 
 const utiliserDB = async(operations, reponse) => {
@@ -334,4 +336,9 @@ app.post('/api/admins/authentifier', (requete, reponse) => {
         );;
     }
 });
+
+app.get('*', (requete, reponse) => {
+    reponse.sendFile(path.join(__dirname + '/build/index.html'));
+});
+
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
