@@ -4,12 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { UtiliseAUTH } from '../../Context/Auth';
 import FormulaireConnectionAdmin from '../../composants/Formulaires/Connection/FormulaireConnectionAdmin';
 import FormulaireConnectionUtilisateur from '../../composants/Formulaires/Connection/FormulaireConnectionUtilisateur';
+import { useTranslation } from 'react-i18next';
 
 function PageConnection() {
 
     const { authentificationUtilisateur } = UtiliseAUTH();
     const { authentificationAdmin } = UtiliseAUTH();
     const [rediriger, setRediriger] = useState("");
+    const { t } = useTranslation();
 
     function AfficherRedirection() {
         if (rediriger === "espaceClient" || rediriger === "admin") {
@@ -21,26 +23,25 @@ function PageConnection() {
 
         if (!authentificationUtilisateur && authentificationAdmin) {
             return (
-                <Alert variant={"danger"}>Vous n'avez pas le droit d'accéder à la page espace client </Alert>
+                <Alert variant={"danger"}>{t('avertissementaccespageclient')}</Alert>
             )
         }
         else if (authentificationUtilisateur && !authentificationAdmin) {
             return (
-                <Alert variant={"danger"}>Vous n'avez pas le droit d'accéder à la page admin </Alert>
+                <Alert variant={"danger"}>{t('avertissementaccespageadmin')}</Alert>
             )
         }
         else {
             return (
                 <>
-                    <Alert variant={"info"}>Connectez vous !!! </Alert>
                     <div >
                         <Tabs transition={false} id="choixFormulaire">
                             <Tab eventKey="utilisateur" title="Client">
-                                <Alert variant={"info mt-4 mb-4"}> Page de connection client </Alert>
+                                <Alert variant={"info mt-4 mb-4"}> {t('pageconnexionclient')} </Alert>
                                 <FormulaireConnectionUtilisateur setRediriger={setRediriger} />
                             </Tab>
                             <Tab eventKey="admin" title="Admin">
-                                <Alert variant={"info mt-4 mb-4"}> Page connection admin  </Alert>
+                                <Alert variant={"info mt-4 mb-4"}> {t('pageconnexionadmin')}  </Alert>
                                 <FormulaireConnectionAdmin setRediriger={setRediriger} />
                             </Tab>
                         </Tabs>

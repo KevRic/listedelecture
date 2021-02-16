@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { UtiliseAUTH } from '../../../Context/Auth';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireConnectionUtilisateur(props) {
 
@@ -10,14 +11,15 @@ function FormulaireConnectionUtilisateur(props) {
     const [alertConnection, setAlertConnection] = useState('');
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const { setAuthentificationAdmin, setAuthentificationUtilisateur, setNomUtilisateur, setIdUtilisateur } = UtiliseAUTH();
+    const { t } = useTranslation();
 
     const SeConnecter = async () => {
         if (email.length === 0 || password.length === 0) {
 
-            AfficherAlert("Attention tous les champs sont obligatoires ", "danger");
+            AfficherAlert(t('avertissementchampobligatoire'), "danger");
         }
         else if (password.length < 6) {
-            AfficherAlert("Mot de passe doit être 6 caractéres ou plus", "danger");
+            AfficherAlert(t('avertissementmotpasse6'), "danger");
         }
         else {
             await fetch(`/api/utilisateurs/authentifier`,
@@ -31,10 +33,10 @@ function FormulaireConnectionUtilisateur(props) {
             ).then((response) => {
 
                 if (response.status === 200) {
-                    AfficherAlert("Vous êtes identifiée", "success");
+                    AfficherAlert(t('vouseteidentifier'), "success");
                 }
                 else {
-                    AfficherAlert("L'utilisateur n'existe pas ", "danger");
+                    AfficherAlert(t('utilisateurnexistepas'), "danger");
                 }
                 response.json().then(
                     data => {
@@ -64,16 +66,16 @@ function FormulaireConnectionUtilisateur(props) {
                         <Form.Label>Email :  </Form.Label>
                         <Form.Control type="email" value={email} required onChange={(event) => setEmail(event.target.value)} />
                         <Form.Control.Feedback type="invalid">
-                            Saisie un email valid svp.
+                        {t('avertissementemailvalide')}
                         </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPasswordUtilisteur">
-                        <Form.Label>Mot de passe : </Form.Label>
+                        <Form.Label>{t('motdepasse')} : </Form.Label>
                         <Form.Control type="password" required value={password} onChange={(event) => setPassword(event.target.value)} />
                     </Form.Group>
-                    <Button variant="primary" onClick={() => SeConnecter()} > Connecter</Button>
-                    <Link to="pageRegistre" className="btn btn-link pr-0">Créer un compte?</Link>
+                    <Button variant="primary" onClick={() => SeConnecter()} > {t('bouton.connexion')}</Button>
+                    <Link to="pageRegistre" className="btn btn-link pr-0">{t('creecompte')}</Link>
 
                 </Form>
                 <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>

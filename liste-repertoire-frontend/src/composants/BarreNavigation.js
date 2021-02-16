@@ -45,7 +45,7 @@ function BarreNavigation() {
                         <Nav.Link className="pr-0" ><Button variant="dark">{t('connecter')}</Button></Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/pageRegistre">
-                        <Nav.Link className="pr-0"  ><Button variant="dark">Créer un compte</Button></Nav.Link>
+                        <Nav.Link className="pr-0"  ><Button variant="dark">{t('creecompte')}</Button></Nav.Link>
                     </LinkContainer>
                 </>
             )

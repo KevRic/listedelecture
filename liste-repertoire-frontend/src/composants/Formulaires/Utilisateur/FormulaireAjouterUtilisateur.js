@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { Form, Button, Col, Alert, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireAjouterUtilisateur() {
   const [validated, setValidated] = useState(false);
@@ -11,6 +12,7 @@ function FormulaireAjouterUtilisateur() {
   const [confirmPassword, setConfirm] = useState('');
   const [alertRegistre, setAlertRegistre] = useState("");
   const [alertColorRegistre, setAlertColorRegistre] = useState("light");
+  const { t } = useTranslation();
 
   function AfficherAlert(message, alert) {
     setAlertRegistre(message);
@@ -81,12 +83,12 @@ function FormulaireAjouterUtilisateur() {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>Prénom</Form.Label>
+            <Form.Label>{t('prenom')}</Form.Label>
             <Form.Control required type="text" value={prenom} onChange={(event) => setPrenom(event.target.value)} />
             <Form.Control.Feedback>c'est ok </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Nom</Form.Label>
+            <Form.Label>{t('nom')}</Form.Label>
             <Form.Control required type="text" value={nom} onChange={(event) => setNom(event.target.value)} />
             <Form.Control.Feedback>c'est ok </Form.Control.Feedback>
           </Form.Group>
@@ -97,20 +99,20 @@ function FormulaireAjouterUtilisateur() {
             <Form.Control type="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationCustom04">
-            <Form.Label>Mot de passe </Form.Label>
+            <Form.Label>{t('motdepasse')}</Form.Label>
             <Form.Control type="password" required value={password} onChange={(event) => setPassword(event.target.value)} />
             <Form.Control.Feedback length="6" type="invalid">
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>Confirmation mot de passe</Form.Label>
+            <Form.Label>{t('confirmationmotdepasse')}</Form.Label>
             <Form.Control type="password" required value={confirmPassword} onChange={(event) => setConfirm(event.target.value)} />
           </Form.Group>
         </Form.Row>
         <Form.Group>
         </Form.Group>
-        <Button variant="primary" onClick={() => VerifierDonnesEntresParUtilisateur()} >Enregistrer</Button>
-        <Link to="pageConnection" className="btn btn-link pr-0">Connection?</Link>
+        <Button variant="primary" onClick={() => VerifierDonnesEntresParUtilisateur()} >{t('bouton.enregistrer')}</Button>
+        <Link to="pageConnection" className="btn btn-link pr-0">{t('bouton.connexion')}</Link>
 
       </Form>
 

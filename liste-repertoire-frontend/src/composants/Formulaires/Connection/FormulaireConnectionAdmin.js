@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { UtiliseAUTH } from '../../../Context/Auth';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireConnectionAdmin(props) {
 
@@ -9,6 +10,7 @@ function FormulaireConnectionAdmin(props) {
     const [alertConnection, setAlertConnection] = useState('');
     const [alertColorReponse, setAlertColorReponse] = useState('');
     const { setAuthentificationAdmin, setAuthentificationUtilisateur, setNomUtilisateur } = UtiliseAUTH();
+    const { t } = useTranslation();
 
     const SeConnecter = async () => {
 
@@ -56,21 +58,21 @@ function FormulaireConnectionAdmin(props) {
         <Container>
             <Form className="width">
                 <Form.Group controlId="formBasicEmailAdmin">
-                    <Form.Label>Nom d'utilisateur :  </Form.Label>
+                    <Form.Label>{t('nomutilisateur')} :  </Form.Label>
                     <Form.Control type="text" value={nomUtilisateur} required
 
                         onChange={(event) => setnomUtilisateur(event.target.value)} />
                     <Form.Control.Feedback type="invalid">
-                        Saisie un email valid svp.
+                    {t('avertissementemailvalide')}
                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPasswordAdmin">
-                    <Form.Label>Mot de passe : </Form.Label>
+                    <Form.Label>{t('motdepasse')} : </Form.Label>
                     <Form.Control type="password" required value={password}
                         onChange={(event) => setPassword(event.target.value)} />
                 </Form.Group>
-                <Button variant="primary" onClick={() => SeConnecter()} > Connecter</Button>
+                <Button variant="primary" onClick={() => SeConnecter()} > {t('bouton.connexion')}</Button>
 
             </Form>
             <Alert variant={alertColorReponse} className="mt-4 mb-4"> {alertConnection}</Alert>
