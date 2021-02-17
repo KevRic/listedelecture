@@ -58,7 +58,11 @@
         "titreajouterpiece": "Add a song",
         "titremodifierpiece": "Modify a song",
         "titresupprimerpiece": "Delete a song",
-        "confirmationsuppresion": "Are you sure you want to delete this song?"
+        "confirmationsuppresion": "Are you sure you want to delete this song?",
+        "erreurpieceincomplete" : "Incomplete song ... Please enter valid fields",
+        "erreurcategorie" : "Category cannot contain 0 characters",
+        "erreurcategorie2" : "Category already exists",
+        "erreurcategorie3" : "The category does not exist"
     },
     "rechercher": "Search",
     "trier": {
@@ -111,13 +115,23 @@
         "annuler": "Cancel",
         "resetcategories": "Reset Categories",
         "enregistrer": "Save",
-        "connexion": "Connection"
+        "connexion": "Connection",
+        "deconnexion" : "Sign Out"
     },
     "demandeenvoyee": "The request has been sent.",
     "pasdepiecesselectionne": "No song selected.",
     "retourneraurepertoire": "Return to song list",
     "reutiliserliste": "Use this list",
-    "voirdemandesspeciales": "See special requests"
+    "voirdemandesspeciales": "See special requests",
 
+    "pageutilisateur": {
+        "titre": "Edit User",
+        "prenom" : "First Name",
+        "nom" : "Last Name",
+        "email" : "E-mail",
+        "motdepasse": "Password",
+        "confirmationmdp": "Password Confirmation",
+        "utilisateurincomplet" : "Incomplete user ... Please enter valid fields"
+      }
 
 }

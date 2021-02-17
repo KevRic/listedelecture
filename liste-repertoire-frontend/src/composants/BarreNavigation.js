@@ -27,14 +27,14 @@ function BarreNavigation() {
                     <LinkContainer to="/pageProfile">
                         <Nav.Link className="pr-0" ><Dropdown.Item as="button">Profile</Dropdown.Item></Nav.Link>
                     </LinkContainer>
-                    <Dropdown.Item as="button" onClick={() => SeDeconnecter()}>Se Déconnecter</Dropdown.Item>
+                    <Dropdown.Item as="button" onClick={() => SeDeconnecter()}>{t('bouton.deconnexion')}</Dropdown.Item>
                 </DropdownButton>
             )
         }
         else if (authentificationUtilisateur === false && authentificationAdmin === true) {
             return (
                 <DropdownButton id="btnProfile" variant={"secondary"} title="Administrateur">
-                    <Dropdown.Item as="button" onClick={() => SeDeconnecter()}>Se Déconnecter</Dropdown.Item>
+                    <Dropdown.Item as="button" onClick={() => SeDeconnecter()}>{t('bouton.deconnexion')}</Dropdown.Item>
                 </DropdownButton>
             )
         }

@@ -37,7 +37,7 @@ function FormulaireModifierPiece({ id }) {
             setRediriger(true);
         }
         else {
-            setAlertCategorie("Pièce incomplète ... veuillez entrer des champs valides.");
+            setAlertCategorie(`${t('pageadministrateur.erreurpieceincomplete')}.`);
             setAlertColor("danger");
         }
 
@@ -46,7 +46,7 @@ function FormulaireModifierPiece({ id }) {
     function AjouterCategorie() {
         if (!categorieArray.some(x => x.toLowerCase() === categorie.toLowerCase())) {
             if (categorie.length < 1) {
-                setAlertCategorie("La Catégorie ne peut pas contenir 0 caractère....");
+                setAlertCategorie(`${t('pageadministrateur.erreurCategorie')}...`);
                 setAlertColor("danger");
             }
             else {
@@ -59,7 +59,7 @@ function FormulaireModifierPiece({ id }) {
             }
         }
         else {
-            setAlertCategorie("La catégorie existe déjà....");
+            setAlertCategorie(`${t('pageadministrateur.erreurcategorie2')}...`);
             setAlertColor("danger");
         }
     }
@@ -74,7 +74,7 @@ function FormulaireModifierPiece({ id }) {
             setAlertColor("light")
         }
         else {
-            setAlertCategorie("La catégorie n'existe pas....");
+            setAlertCategorie(`${t('pageadministrateur.erreurcategorie3')}...`);
             setAlertColor("danger");
         }
 

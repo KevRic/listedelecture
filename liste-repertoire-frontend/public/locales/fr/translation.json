@@ -58,7 +58,11 @@
         "titreajouterpiece": "Ajouter une nouvelle pièce",
         "titremodifierpiece": "Modifier une pièce",
         "titresupprimerpiece": "Supprimer une pièce",
-        "confirmationsuppresion": "Êtes-vous certain de vouloir supprimer cette pièce?"
+        "confirmationsuppresion": "Êtes-vous certain de vouloir supprimer cette pièce?",
+        "erreurpieceincomplete" : "Pièce incomplète ... veuillez entrer des champs valides",
+        "erreurcategorie" : "La catégorie ne peut pas contenir 0 caractère",
+        "erreurcategorie2" : "La catégorie existe déjà",
+        "erreurcategorie3" : "La catégorie n'existe pas"
     },
     "nomutilisateur": "Nom d'utilisateur",
     "prenom": "Prénom",
@@ -111,13 +115,23 @@
         "annuler": "Annuler",
         "resetcategories": "Réinitialiser Catégories",
         "enregistrer": "Enregistrer",
-        "connexion": "Connexion"
+        "connexion": "Connexion",
+        "deconnexion" : "Déconnexion"
     },
     "demandeenvoyee": "La demande a bien été envoyée.",
     "pasdepiecesselectionne": "Vous n'avez pas sélectionné de pièces.",
     "retourneraurepertoire": "Retourner au répertoire",
     "reutiliserliste": "Réutiliser cette liste",
 
-    "voirdemandesspeciales": "Voir les demandes spéciales"
+    "voirdemandesspeciales": "Voir les demandes spéciales",
+    "pageutilisateur": {
+        "titre": "Modifier utilisateur",
+        "prenom" : "Prénom",
+        "nom" : "Nom",
+        "email" : "E-mail",
+        "motdepasse": "Mot de Passe",
+        "confirmationmdp": "Confirmation Mot de Passe",
+        "utilisateurincomplet" : "Utilisateur incomplet ... Veuillez entrer des champs valides"
+      }
 
 }

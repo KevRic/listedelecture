@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function FormulaireModifierUtilisateur({ id }) {
+    const { t } = useTranslation();
     const [Nom, setNom] = useState('');
     const [Prenom, setPrenom] = useState('');
     const [Email, setEmail] = useState('');
@@ -37,7 +39,7 @@ function FormulaireModifierUtilisateur({ id }) {
             setRediriger(true);
         }
         else {
-            setAlertCategorie("Utilisateur incomplète ... veuillez entrer des champs valides.");
+            setAlertCategorie(`${t('pageutilisateur.utilisateurincomplet')}.`);
             setAlertColor("danger");
         }
     };
@@ -54,39 +56,39 @@ function FormulaireModifierUtilisateur({ id }) {
             <Alert variant={alertColor}>{alertCategorie}</Alert>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Prénom : </Form.Label>
+                    <Form.Label>{t('pageutilisateur.prenom')} : </Form.Label>
                     <Form.Control type="text" value={Prenom}
                         onChange={(event) => setPrenom(event.target.value)} />
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Nom : </Form.Label>
+                    <Form.Label>{t('pageutilisateur.nom')} : </Form.Label>
                     <Form.Control type="text" value={Nom}
                         onChange={(event) => setNom(event.target.value)} />
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label >Email : </Form.Label>
+                    <Form.Label >{t('pageutilisateur.email')} : </Form.Label>
                     <Form.Control type="email" value={Email}
                         onChange={(event) => setEmail(event.target.value)} />
 
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label >Mot de passe  : </Form.Label>
+                    <Form.Label >{t('pageutilisateur.motdepasse')} : </Form.Label>
                     <Form.Control type="password" value={Password}
                         onChange={(event) => setPassword(event.target.value)} />
 
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label > Confirmation mot de passe  : </Form.Label>
+                    <Form.Label >{t('pageutilisateur.confirmationmdp')} : </Form.Label>
                     <Form.Control type="password" value={ConfirmMotDePasse}
                         onChange={(event) => setConfirmMotDePasse(event.target.value)} />
 
                 </Form.Group>
                 <Button variant="primary mr-2" onClick={() => envoyerFormulaire()} >
-                    Modifier
+                    {t('bouton.modifier')}
             </Button>
 
             </Form>

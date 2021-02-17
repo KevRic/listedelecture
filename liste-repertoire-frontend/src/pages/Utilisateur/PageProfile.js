@@ -2,8 +2,10 @@ import { React, useState, useEffect } from 'react';
 import { Container, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { UtiliseAUTH } from '../../Context/Auth';
+import { useTranslation } from 'react-i18next';
 
 function PageProfile() {
+    const { t } = useTranslation();
     const { IdUtilisateur } = UtiliseAUTH();
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
@@ -24,14 +26,14 @@ function PageProfile() {
         <Container fluid>
             <div className="mb-2">
                 <Link to={`/PageModifierProfile/${IdUtilisateur}`}>
-                    <Button variant="success"  >Modifier profile</Button>
+                    <Button variant="success">{t('bouton.modifier')}</Button>
                 </Link>
             </div>
 
             <Alert variant={"success"}>
-                   Nom :   <h2> {nom}</h2>
-                   Prénom :  <h2>{prenom}</h2>
-                   Email :  <h2> {email}</h2>
+            {t('pageutilisateur.nom')} :   <h2> {nom}</h2>
+            {t('pageutilisateur.prenom')} :  <h2>{prenom}</h2>
+            {t('pageutilisateur.email')} :  <h2> {email}</h2>
             </Alert>
         </Container>
     )
